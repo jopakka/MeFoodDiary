@@ -3,7 +3,7 @@
     <string name="findFood">Enter foods name</string>
     <string name="foodText">Find foods info</string>
     <string name="bSearch">Search</string>
-    <string name="btFindFood">Find foods nutritions</string>
-    <string name="btAddMeal">Add meal</string>
-    <string name="btHistory">History</string>
+    <string name="title_home">Search</string>
+    <string name="title_history">History</string>
+    <string name="title_addMeal">Add Meal</string>
 </resources>
