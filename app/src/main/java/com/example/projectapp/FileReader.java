@@ -39,10 +39,4 @@ public class FileReader {
             return new ArrayList<>();
         }
     }
-
-    public List readWeb(){
-        try{
-
-        }
-    }
 }

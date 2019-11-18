@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Project App</string>
+    <string name="app_name">meFoodDiary</string>
     <string name="findFood">Enter foods name</string>
     <string name="foodText">Find foods info</string>
     <string name="bSearch">Search</string>
+    <string name="btFindFood">Find foods nutritions</string>
+    <string name="btAddMeal">Add meal</string>
+    <string name="btHistory">History</string>
 </resources>

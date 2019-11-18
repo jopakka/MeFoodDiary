@@ -16,25 +16,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private List ruokalista;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        //Read food_nutritions.csv file
-        FileReader reader = new FileReader();
-        InputStream myFile = this.getResources().openRawResource(R.raw.food_nutritions);
-        ruokalista = reader.readFile(myFile);
-        FoodList foodList = new FoodList(ruokalista);
-
-
-        //ListView of foods
-        ListView lvFoods = findViewById(R.id.lvFoods);
-        lvFoods.setAdapter(new ArrayAdapter<Food>(this,
-                R.layout.food_list_layout,
-                FoodList.getInstance().getFoods()));
-
+    public void bFindNutritions(View v){
+        Intent intent = new Intent(this, FindFood.class);
+        startActivity(intent);
     }
 }
