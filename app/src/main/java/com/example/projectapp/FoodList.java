@@ -7,10 +7,6 @@ public class FoodList {
     private static FoodList ourInstance = null;
     private List<Food> foods;
 
-    public static FoodList getInstance() {
-        return ourInstance;
-    }
-
     public FoodList(List foods) {
         this.foods = new ArrayList<>();
         this.foods = foods;
@@ -19,5 +15,9 @@ public class FoodList {
 
     public List<Food> getFoods(){
         return this.foods;
+    }
+
+    public static FoodList getInstance() {
+        return ourInstance;
     }
 }

@@ -10,7 +10,7 @@ public class AddMealViewModel extends ViewModel {
 
     public AddMealViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is addMeal fragment");
     }
 
     public LiveData<String> getText() {
