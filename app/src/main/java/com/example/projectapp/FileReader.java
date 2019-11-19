@@ -28,10 +28,16 @@ public class FileReader {
                 //String[] lineSplit = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 String[] lineSplit = line.split(";");
                 String name = lineSplit[1];
+                String energia = lineSplit[2];
+                String rasva = lineSplit[3];
+                String hiilihydraatti = lineSplit[4];
+                String kuitu = lineSplit[17];
+                String proteiini = lineSplit[5];
+                String suola = lineSplit[39];
                 //name = name.replace("\"", "");
 
                 Log.i("FileReader", "");
-                results.add(new Food(name));
+                results.add(new Food(name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));
             }
             Log.i("FileReader", "Toimii!!!!");
             return results;

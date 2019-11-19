@@ -3,6 +3,8 @@ package com.example.projectapp.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         lvFoods = root.findViewById(R.id.lvFoods);
         listFoods();
+        setHasOptionsMenu(true);
 
         //Search button code
         Button findButton = root.findViewById(R.id.bFindFood);
@@ -58,8 +61,13 @@ public class HomeFragment extends Fragment {
                 startActivity(nextActivity);
             }
         });
-
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.top_menu_find, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     private void searchFoods(){
