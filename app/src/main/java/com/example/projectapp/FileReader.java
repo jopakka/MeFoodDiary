@@ -25,9 +25,10 @@ public class FileReader {
             String line;
             reader.readLine(); //Skips first line
             while((line = reader.readLine()) != null){
-                String[] lineSplit = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                //String[] lineSplit = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                String[] lineSplit = line.split(";");
                 String name = lineSplit[1];
-                name = name.replace("\"", "");
+                //name = name.replace("\"", "");
 
                 Log.i("FileReader", "");
                 results.add(new Food(name));

@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">meFoodDiary</string>
-    <string name="findFood">Enter food by name</string>
-    <string name="foodText">Find foods info</string>
-    <string name="bSearch">Search</string>
-    <string name="title_home">Search</string>
-    <string name="title_history">History</string>
-    <string name="title_addMeal">Add Meal</string>
+    <string name="findFood">Hae ruokia</string>
+    <string name="bSearch">Haku</string>
+    <string name="title_home">Etsi</string>
+    <string name="title_history">Historia</string>
+    <string name="title_addMeal">Lisää ateria</string>
 </resources>
