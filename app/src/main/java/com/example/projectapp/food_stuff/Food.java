@@ -1,4 +1,4 @@
-package com.example.projectapp;
+package com.example.projectapp.food_stuff;
 
 public class Food {
     private String name;
@@ -8,9 +8,11 @@ public class Food {
     private String kuitu;
     private String proteiini;
     private String suola;
+    private int id;
 
 
-    public Food(String name, String energia, String rasva, String hiilihyraatti, String kuitu, String proteiini, String suola) {
+    public Food(int id, String name, String energia, String rasva, String hiilihyraatti, String kuitu, String proteiini, String suola) {
+        this.id = id;
         this.name = name;
         this.energia = energia;
         this.rasva = rasva;
@@ -18,6 +20,10 @@ public class Food {
         this.kuitu = kuitu;
         this.proteiini = proteiini;
         this.suola = suola;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String getName() {

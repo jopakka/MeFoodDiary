@@ -2,6 +2,8 @@ package com.example.projectapp.ui.history;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,11 +20,11 @@ public class HistoryFragment extends Fragment {
 
     private HistoryViewModel historyViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        historyViewModel =
-                ViewModelProviders.of(this).get(HistoryViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_history, container, false);
+        setHasOptionsMenu(true);
+
         final TextView textView = root.findViewById(R.id.text_history);
         historyViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -31,5 +33,12 @@ public class HistoryFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    //Create top bar buttons
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.action_search).setVisible(false);
     }
 }

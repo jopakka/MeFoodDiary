@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">meFoodDiary</string>
+    <string name="app_name">MeFoodDiary</string>
     <string name="findFood">Hae ruokia</string>
     <string name="bSearch">Haku</string>
     <string name="title_home">Koti</string>
@@ -14,4 +14,5 @@
     <string name="foodInfo_kuitu">Kuitua:</string>
     <string name="foodInfo_proteiini">Proteiinia:</string>
     <string name="foodInfo_suola">Suolaa:</string>
+    <string name="tvSearch">Etsi</string>
 </resources>

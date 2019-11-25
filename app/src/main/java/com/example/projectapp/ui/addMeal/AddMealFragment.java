@@ -2,6 +2,8 @@ package com.example.projectapp.ui.addMeal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,11 +20,11 @@ public class AddMealFragment extends Fragment {
 
     private AddMealViewModel addMealViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        addMealViewModel =
-                ViewModelProviders.of(this).get(AddMealViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        addMealViewModel = ViewModelProviders.of(this).get(AddMealViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_meal, container, false);
+        setHasOptionsMenu(true);
+
         final TextView textView = root.findViewById(R.id.text_addMeal);
         addMealViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -31,5 +33,12 @@ public class AddMealFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    //Create top bar buttons
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.action_search).setVisible(false);
     }
 }

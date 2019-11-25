@@ -1,20 +1,22 @@
-package com.example.projectapp;
+package com.example.projectapp.food_stuff;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoodList {
-    private static FoodList ourInstance = null;
+    private static final FoodList ourInstance = new FoodList();
     private List<Food> foods;
 
-    public FoodList(List foods) {
-        this.foods = new ArrayList<>();
+    private FoodList() {
+        foods = new ArrayList<>();
+    }
+
+    public void addFoods(List<Food> foods){
         this.foods = foods;
-        ourInstance = this;
     }
 
     public List<Food> getFoods(){
-        return this.foods;
+        return foods;
     }
 
     public static FoodList getInstance() {

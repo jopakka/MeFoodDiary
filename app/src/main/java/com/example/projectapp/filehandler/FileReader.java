@@ -1,6 +1,8 @@
-package com.example.projectapp;
+package com.example.projectapp.filehandler;
 
 import android.util.Log;
+
+import com.example.projectapp.food_stuff.Food;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,8 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FileReader {
     private static final FileReader ourInstance = new FileReader();
@@ -23,6 +23,7 @@ public class FileReader {
             List results = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new InputStreamReader(fileName));
             String line;
+            int id = 0;
             reader.readLine(); //Skips first line
             while((line = reader.readLine()) != null){
                 //String[] lineSplit = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -37,7 +38,8 @@ public class FileReader {
                 //name = name.replace("\"", "");
 
                 Log.i("FileReader", "");
-                results.add(new Food(name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));
+                results.add(new Food(id, name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));
+                id++;
             }
             Log.i("FileReader", "Toimii!!!!");
             return results;
