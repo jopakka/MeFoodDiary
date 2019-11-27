@@ -11,25 +11,24 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectapp.R;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
-import com.example.projectapp.ui.home.HomeFragment;
 
 public class InfoFragment extends Fragment {
-
-    private InfoViewModel infoViewModel;
     private int value;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        infoViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_info, container, false);
         value = getArguments().getInt("item");
         setHasOptionsMenu(true);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         return root;
     }
 
@@ -54,10 +53,10 @@ public class InfoFragment extends Fragment {
                 .setText(food.getSuola() + "mg");
     }
 
-    //Create top bar buttons
+    //Create action bar buttons
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem(R.id.action_search).expandActionView();
+        menu.findItem(R.id.action_search).setVisible(false);
     }
 }

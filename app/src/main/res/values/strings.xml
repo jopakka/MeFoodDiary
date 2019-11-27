@@ -15,4 +15,6 @@
     <string name="foodInfo_proteiini">Proteiinia:</string>
     <string name="foodInfo_suola">Suolaa:</string>
     <string name="tvSearch">Etsi</string>
+    <string name="tCreators">Sovelluksen tekijät:</string>
+    <string name="tNames">Elmeri Katainen\nMiro Norring\nJoonas Niemi</string>
 </resources>

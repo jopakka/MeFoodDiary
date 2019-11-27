@@ -18,20 +18,9 @@ import com.example.projectapp.R;
 
 public class AddMealFragment extends Fragment {
 
-    private AddMealViewModel addMealViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addMealViewModel = ViewModelProviders.of(this).get(AddMealViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_meal, container, false);
         setHasOptionsMenu(true);
-
-        final TextView textView = root.findViewById(R.id.text_addMeal);
-        addMealViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 
