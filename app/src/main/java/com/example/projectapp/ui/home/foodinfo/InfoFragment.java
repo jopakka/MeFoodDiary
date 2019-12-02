@@ -1,4 +1,4 @@
-package com.example.projectapp.ui.info;
+package com.example.projectapp.ui.home.foodinfo;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectapp.R;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 
 public class InfoFragment extends Fragment {
+    private static final String TAG = "MyLog";
     private int value;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class InfoFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         Food food = FoodList.getInstance().getFoods().get(value);
-        Log.i("testilog", "info " + value);
+        Log.i(TAG, "info " + value);
 
         ((TextView)getView().findViewById(R.id.tvFoodName))
                 .setText(food.getName());

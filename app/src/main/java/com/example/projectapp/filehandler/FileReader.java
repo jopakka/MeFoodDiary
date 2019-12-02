@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
+    private static final String TAG = "MyLog";
     private static final FileReader ourInstance = new FileReader();
 
     public static FileReader getInstance() {
@@ -37,14 +38,14 @@ public class FileReader {
                 String suola = lineSplit[39];
                 //name = name.replace("\"", "");
 
-                Log.i("FileReader", "");
+                Log.i(TAG, "");
                 results.add(new Food(id, name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));
                 id++;
             }
-            Log.i("FileReader", "Toimii!!!!");
+            Log.i(TAG, "Tiedostonluku toimii!!!!");
             return results;
         } catch (IOException ex) {
-            Log.i("FileReader", "Tiedoston " + fileName + " lukeminen epäonnistui!\n" + "Virhe: " + ex);
+            Log.i(TAG, "Tiedoston " + fileName + " lukeminen epäonnistui!\n" + "Virhe: " + ex);
             return new ArrayList<>();
         }
     }

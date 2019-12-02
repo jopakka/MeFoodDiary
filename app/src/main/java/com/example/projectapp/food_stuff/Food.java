@@ -22,10 +22,6 @@ public class Food {
         this.suola = suola;
     }
 
-    public int getId(){
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -52,6 +48,10 @@ public class Food {
 
     public String getSuola() {
         return suola;
+    }
+
+    public int getId(){
+        return id;
     }
 
     @Override
