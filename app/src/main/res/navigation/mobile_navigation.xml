@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="com.example.projectapp.ui.info.InfoFragment"
+        android:name="com.example.projectapp.ui.home.foodinfo.InfoFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_info" />
 </navigation>
