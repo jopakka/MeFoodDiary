@@ -17,4 +17,7 @@
     <string name="tvSearch">Etsi</string>
     <string name="tCreators">Sovelluksen tekijät:</string>
     <string name="tNames">Elmeri Katainen\nMiro Norring\nJoonas Niemi</string>
+    <string name="ingredient_tip">Hae lisättävää ainesosaa</string>
+    <string name="add_meal">Lisää ateria</string>
+    <string name="delete_ingredient">Poista</string>
 </resources>

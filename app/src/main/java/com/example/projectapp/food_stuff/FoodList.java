@@ -19,6 +19,7 @@ public class FoodList {
         return foods;
     }
 
+
     public static FoodList getInstance() {
         return ourInstance;
     }
