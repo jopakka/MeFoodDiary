@@ -37,7 +37,10 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class HomeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
+
+    // Tiedosto on https://fineli.fi/fineli/fi/elintarvikkeet
     private static final int MYFILE = R.raw.resultset;
+
     private List ruokalista;
     private ListView lvFoods;
     private ArrayList<Food> copy;

@@ -11,14 +11,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that reads file
+ */
 public class FileReader {
     private static final String TAG = "MyLog";
-    private static final FileReader ourInstance = new FileReader();
 
-    public static FileReader getInstance() {
-        return ourInstance;
-    }
-
+    /**
+     * Creates list from items it has read
+     * @param fileName File that user wants to read
+     * @return returns list that contains files information
+     */
     public List readFile(InputStream fileName){
         try{
             List results = new ArrayList<>();

@@ -1,14 +1,5 @@
 package com.example.projectapp.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +9,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.example.projectapp.R;
-import com.example.projectapp.ui.addMeal.AddMealFragment;
-import com.example.projectapp.ui.history.HistoryFragment;
-import com.example.projectapp.ui.home.HomeFragment;
-import com.example.projectapp.ui.home.foodinfo.InfoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText et = findViewById(R.id.ptFind);
                 String text = et.getText().toString();
                 if (searchVisible) {
+                    //Piilottaa näyttönäppäimistön, mikäli se on päällä
                     try {
                         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -76,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     findViewById(R.id.ptFind).clearFocus();
                     if (text.isEmpty()) {
                         item.setIcon(R.drawable.ic_search_black_24dp);
-                        findViewById(R.id.ptFind).setVisibility(View.GONE);
+                        et.setVisibility(View.GONE);
                         findViewById(R.id.bSearch).setVisibility(View.GONE);
                         searchVisible = false;
                     } else {
@@ -84,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     item.setIcon(R.drawable.ic_clear_white_24dp);
-                    findViewById(R.id.ptFind).setVisibility(View.VISIBLE);
+                    et.setVisibility(View.VISIBLE);
                     findViewById(R.id.bSearch).setVisibility(View.VISIBLE);
-                    findViewById(R.id.ptFind).requestFocus();
+                    et.requestFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     imm.showSoftInput(findViewById(R.id.ptFind), 0);
                     searchVisible = true;
