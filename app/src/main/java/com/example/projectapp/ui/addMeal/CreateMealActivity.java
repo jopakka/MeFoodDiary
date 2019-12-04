@@ -1,17 +1,16 @@
 package com.example.projectapp.ui.addMeal;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,6 +37,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     private EditText et;
     private List ruokalista;
     private static final int MYFILE = R.raw.resultset;
+    private String ateriaNimi = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     /**
      * Contains onClick methods
-     * @param view Current view
      *
+     * @param view Current view
      */
     @Override
     public void onClick(View view) {
@@ -84,16 +84,37 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.addFood:
                 Log.i(TAG, "lisäysnappi toimii");
-                Meal ateria = new Meal(ingredients);
-                Toast.makeText(getApplicationContext(),"Ateria tallennetu!", Toast.LENGTH_LONG).show();
+        // https://stackoverflow.com/questions/10903754/input-text-dialog-android
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Nimeä ateria");
+                final EditText input = new EditText(this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setPositiveButton("Tallenna", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ateriaNimi = input.getText().toString();
+                        Meal ateria = new Meal(ingredients, ateriaNimi);
+                        Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("Peruuta", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
+                builder.show();
                 break;
+
 
         }
     }
 
     /**
      * Contains onItemClick
+     *
      * @param parent
      * @param view
      * @param i
@@ -101,7 +122,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-        Log.i(TAG,  "Item ID: " + copy.get(i).getId());
+        Log.i(TAG, "Item ID: " + copy.get(i).getId());
         ingredients.add(FoodList.getInstance().getFoods().get(copy.get(i).getId()));
         showIngredients();
 
@@ -109,7 +130,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void showIngredients(){
+    private void showIngredients() {
         valitut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
                 ingredients));
@@ -121,7 +142,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
 
-        if(FoodList.getInstance().getFoods().size() == 0){
+        if (FoodList.getInstance().getFoods().size() == 0) {
             FileReader reader = new FileReader();
             InputStream myFile = getResources().openRawResource(MYFILE);
             ruokalista = reader.readFile(myFile);
@@ -151,11 +172,11 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.delete:
-                Log.i(TAG,  "Poisto toimii");
-                Log.i(TAG,  "Long click id " + info.id);
-                ingredients.remove((int)info.id);
+                Log.i(TAG, "Poisto toimii");
+                Log.i(TAG, "Long click id " + info.id);
+                ingredients.remove((int) info.id);
                 showIngredients();
                 return true;
         }
@@ -164,10 +185,28 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu,v,menuInfo);
-        if (v.getId()==R.id.valitut) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.valitut) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_list, menu);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i(TAG, "takaisin ateriafragmenttiin");
+        super.onBackPressed();
     }
 }

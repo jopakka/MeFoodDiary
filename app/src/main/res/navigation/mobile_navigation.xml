@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_addMeal"
-        android:name="com.example.projectapp.ui.addMeal.AddMealFragment"
+        android:name="com.example.projectapp.ui.addMeal.MealsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_add_meal" />
 

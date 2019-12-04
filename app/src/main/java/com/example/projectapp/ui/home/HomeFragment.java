@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.action_addMeal).setVisible(false);
     }
 
     // Show all foods or find specific one
