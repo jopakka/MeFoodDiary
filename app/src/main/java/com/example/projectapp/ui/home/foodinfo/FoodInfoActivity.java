@@ -17,15 +17,25 @@ import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.ui.AppInfoActivity;
 import com.example.projectapp.ui.MainActivity;
 
+/**
+ * Class that contains FoodInfo Activity stuff
+ */
 public class FoodInfoActivity extends AppCompatActivity {
     private static final String TAG = "MyLog";
 
+    /**
+     * When creates activity
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_info);
     }
 
+    /**
+     * Happens when activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -52,6 +62,11 @@ public class FoodInfoActivity extends AppCompatActivity {
                 .setText(food.getSuola() + "mg");
     }
 
+    /**
+     * Creates options menu
+     * @param menu Menu
+     * @return Return boolean of options bar status
+     */
     //Create action bar buttons
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +75,11 @@ public class FoodInfoActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Options menu items click events
+     * @param item Options menu item
+     * @return return boolen of selected item
+     */
     //Options menu item click events
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,6 +98,10 @@ public class FoodInfoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Action bar support back arrow click event
+     * @return
+     */
     @Override
     public boolean onSupportNavigateUp() {
         Log.i(TAG, "foodInfoActivity actionBar back toimii");
@@ -85,6 +109,9 @@ public class FoodInfoActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Normal back press click event
+     */
     @Override
     public void onBackPressed() {
         Log.i(TAG, "foodInfoActivity back toimii");

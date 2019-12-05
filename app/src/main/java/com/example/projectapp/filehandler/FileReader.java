@@ -30,7 +30,6 @@ public class FileReader {
             int id = 0;
             reader.readLine(); //Skips first line
             while((line = reader.readLine()) != null){
-                //String[] lineSplit = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 String[] lineSplit = line.split(";");
                 String name = lineSplit[1];
                 String energia = lineSplit[2];
@@ -39,7 +38,6 @@ public class FileReader {
                 String kuitu = lineSplit[17];
                 String proteiini = lineSplit[5];
                 String suola = lineSplit[39];
-                //name = name.replace("\"", "");
 
                 Log.i(TAG, "");
                 results.add(new Food(id, name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));

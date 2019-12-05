@@ -18,11 +18,18 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.projectapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Class that contains MainActivity stuffs and action bar items
+ */
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
     private boolean searchVisible;
 
+    /**
+     * Happens when activity is created
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    /**
+     * Creates options menu to action bar
+     * @param menu Menu
+     * @return Return boolean if action bar is created
+     */
     //Luo options valikon yläpalkkiin
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Options menu onClick events
+     * @param item Menu item
+     * @return return if item is clicked
+     */
     //Options menu item click events
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -95,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Returns boolean depends if home fragments search bar is visible
+     * @return
+     */
     public boolean getSearchVisible() {
         return searchVisible;
     }

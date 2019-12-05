@@ -18,7 +18,6 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.projectapp.R;
 import com.example.projectapp.filehandler.FileReader;
@@ -26,7 +25,6 @@ import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.ui.MainActivity;
 import com.example.projectapp.ui.home.foodinfo.FoodInfoActivity;
-import com.example.projectapp.ui.home.foodinfo.InfoFragment;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -34,6 +32,9 @@ import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
+/**
+ * Class that contains Home fragmets stuff
+ */
 public class HomeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
@@ -48,6 +49,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
     private EditText et;
     private String searchWords;
 
+    /**
+     * Happens when fragment is created
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return Returns inflated fragment
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         lvFoods = root.findViewById(R.id.lvFoods);
@@ -62,6 +70,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         return root;
     }
 
+    /**
+     * Buttons onClick events
+     * @param view Current view
+     */
     //Button onClick events
     @Override
     public void onClick(View view) {
@@ -87,6 +99,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         }
     }
 
+    /**
+     * AdapterViews onClick events
+     * @param parent AdapterView
+     * @param view Current view
+     * @param i Visible part of list
+     * @param l Whole list
+     */
     //ArrayList item click listener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -96,19 +115,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         Intent infoIntent = new Intent(getActivity(), FoodInfoActivity.class);
         infoIntent.putExtra(EXTRA, copy.get(i).getId());
         startActivity(infoIntent);
-
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putInt("item", copy.get(i).getId());
-        Fragment infoFragment = new InfoFragment();
-        infoFragment.setArguments(bundle);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.nav_host_fragment, infoFragment);
-        ft.addToBackStack(null);
-        ft.commit();
-         */
     }
 
+    /**
+     * Happens when fragment is created
+     * @param view Current view
+     * @param savedInstanceState Bundle
+     */
     //After view is created
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -124,12 +137,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         }
     }
 
+    /**
+     * Creates options menu
+     * @param menu Which menu will be created
+     * @param inflater MenuInflater
+     */
     //Create top bar buttons
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Find items that contains word(s) given in EditText box
+     */
     // Show all foods or find specific one
     private void searchFoods() {
         // If FoodList is empty, create new list
