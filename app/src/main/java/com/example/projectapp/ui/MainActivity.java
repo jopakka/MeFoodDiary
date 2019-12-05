@@ -16,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.projectapp.R;
+import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -107,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 Log.i(TAG, "action bar back toimii");
                 getSupportFragmentManager().popBackStack();
+                return true;
+
+            case R.id.action_addMeal:
+                Log.i(TAG, "Lisää ateria-välilehti toimii");
+                Intent intent2 = new Intent(this, CreateMealActivity.class);
+                startActivity(intent2);
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

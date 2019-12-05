@@ -29,5 +29,6 @@ public class HistoryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_addMeal).setVisible(false);
     }
 }

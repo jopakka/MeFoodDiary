@@ -41,9 +41,9 @@ import java.util.List;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
- * Class that contains AddMealFragment
+ * Class that contains MealsFragment
  */
-public class AddMealFragment extends Fragment {
+public class MealsFragment extends Fragment {
     private static final String TAG = "MyLog";
     private static final int MYFILE = R.raw.resultset;
 
