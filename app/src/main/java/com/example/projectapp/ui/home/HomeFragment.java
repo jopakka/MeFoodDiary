@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         lvFoods = root.findViewById(R.id.lvFoods);
         setHasOptionsMenu(true);
-        boolean showSearch = false;
 
         Button searchButton = root.findViewById(R.id.bSearch);
         searchButton.setOnClickListener(this);
