@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -16,6 +15,8 @@ import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.ui.AppInfoActivity;
 import com.example.projectapp.ui.MainActivity;
+
+import java.util.Objects;
 
 /**
  * Class that contains FoodInfo Activity stuff
@@ -39,27 +40,33 @@ public class FoodInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Bundle b = getIntent().getExtras();
-        int value = b.getInt(MainActivity.EXTRA, 0);
+        int value = Objects.requireNonNull(b).getInt(MainActivity.EXTRA, 0);
         Food food = FoodList.getInstance().getFoods().get(value);
         Log.i(TAG, "info " + value);
 
-        ((TextView)findViewById(R.id.tvFoodName))
-                .setText(food.getName());
-        ((TextView)findViewById(R.id.tvEnergia))
-                .setText(food.getEnergia() + "kJ/ " + Math.round(Integer.parseInt(food.getEnergia()) / 4.1868) + "kcal");
-        ((TextView)findViewById(R.id.tvHiilihydraatit))
-                .setText(food.getHiilihyraatti() + "g");
-        ((TextView)findViewById(R.id.tvKuitu))
-                .setText(food.getKuitu() + "g");
-        ((TextView)findViewById(R.id.tvProteiini))
-                .setText(food.getProteiini() + "g");
-        ((TextView)findViewById(R.id.tvRasva))
-                .setText(food.getRasva() + "g");
-        ((TextView)findViewById(R.id.tvSuola))
-                .setText(food.getSuola() + "mg");
+        ((TextView)findViewById(R.id.tvFoodName)).setText(food.getName());
+
+        ((TextView)findViewById(R.id.tvEnergia)).setText(String.format(getResources()
+                .getString(R.string.text_energy), food.getEnergia(),
+                "" + Math.round(Integer.parseInt(food.getEnergia()) / 4.1868)));
+
+        ((TextView)findViewById(R.id.tvHiilihydraatit)).setText(String.format(getResources()
+                .getString(R.string.text_gram), food.getHiilihyraatti()));
+
+        ((TextView)findViewById(R.id.tvKuitu)).setText(String.format(getResources()
+                .getString(R.string.text_gram), food.getKuitu()));
+
+        ((TextView)findViewById(R.id.tvProteiini)).setText(String.format(getResources()
+                .getString(R.string.text_gram), food.getProteiini()));
+
+        ((TextView)findViewById(R.id.tvRasva)).setText(String.format(getResources()
+                .getString(R.string.text_gram), food.getRasva()));
+
+        ((TextView)findViewById(R.id.tvSuola)).setText(String.format(getResources()
+                .getString(R.string.text_mGram), food.getSuola()));
     }
 
     /**
@@ -101,7 +108,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
     /**
      * Action bar support back arrow click event
-     * @return
+     * @return Returns back pressed boolean
      */
     @Override
     public boolean onSupportNavigateUp() {

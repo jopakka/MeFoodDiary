@@ -19,6 +19,8 @@ import com.example.projectapp.R;
 import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 /**
  * Class that contains MainActivity stuffs and action bar items
  */
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     //Piilottaa näyttönäppäimistön, mikäli se on päällä
                     try {
                         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                        Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                     } catch (Exception e) {
                         Log.d(TAG, "keyboard not visible");
                     }
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     findViewById(R.id.bSearch).setVisibility(View.VISIBLE);
                     et.requestFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(findViewById(R.id.ptFind), 0);
+                    Objects.requireNonNull(imm).showSoftInput(findViewById(R.id.ptFind), 0);
                     searchVisible = true;
                 }
                 return true;
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Returns boolean depends if home fragments search bar is visible
-     * @return
+     * @return Return search bars visible value
      */
     public boolean getSearchVisible() {
         return searchVisible;

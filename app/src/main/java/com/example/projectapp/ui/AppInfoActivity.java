@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 
 import com.example.projectapp.R;
+
+import java.util.Objects;
 
 /**
  * Class that contains AppInfo activity stuffs
@@ -30,12 +31,12 @@ public class AppInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     /**
      * Action bar back arrow stuff
-     * @return
+     * @return Returns back pressed boolean
      */
     @Override
     public boolean onSupportNavigateUp() {

@@ -21,4 +21,8 @@
     <string name="add_meal">Lisää ateria</string>
     <string name="delete_ingredient">Poista</string>
     <string name="title_create_meal">Luo uusi ateria</string>
+    <string name="infoText_foodsName">Ruuan nimi</string>
+    <string name="text_energy">%1$skj/ %2$skcal</string>
+    <string name="text_gram">%1$sg</string>
+    <string name="text_mGram">%1$smg</string>
 </resources>

@@ -4,14 +4,14 @@ package com.example.projectapp.food_stuff;
  * Food object class
  */
 public class Food {
-    private String name;
-    private String energia;
-    private String rasva;
-    private String hiilihyraatti;
-    private String kuitu;
-    private String proteiini;
-    private String suola;
-    private int id;
+    private final String name;
+    private final String energia;
+    private final String rasva;
+    private final String hiilihyraatti;
+    private final String kuitu;
+    private final String proteiini;
+    private final String suola;
+    private final int id;
 
     /**
      * Creates food object

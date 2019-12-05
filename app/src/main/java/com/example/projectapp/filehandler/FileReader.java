@@ -22,9 +22,9 @@ public class FileReader {
      * @param fileName File that user wants to read
      * @return returns list that contains files information
      */
-    public List readFile(InputStream fileName){
+    public List<Food> readFile(InputStream fileName){
         try{
-            List results = new ArrayList<>();
+            List<Food> results = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new InputStreamReader(fileName));
             String line;
             int id = 0;
