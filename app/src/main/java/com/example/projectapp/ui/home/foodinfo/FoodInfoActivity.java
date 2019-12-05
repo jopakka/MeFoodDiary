@@ -72,6 +72,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_addMeal).setVisible(false);
         return true;
     }
 
