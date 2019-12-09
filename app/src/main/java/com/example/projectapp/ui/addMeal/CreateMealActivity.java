@@ -95,7 +95,11 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                     public void onClick(DialogInterface dialog, int which) {
                         ateriaNimi = input.getText().toString();
                         Meal ateria = new Meal(ingredients, ateriaNimi);
+                        ateriaNimi = "";
                         Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_LONG).show();
+                        ingredients.clear();
+                        showIngredients();
+                        onSupportNavigateUp();
                     }
                 });
                 builder.setNegativeButton("Peruuta", new DialogInterface.OnClickListener() {
