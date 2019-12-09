@@ -129,37 +129,37 @@
                     android:id="@+id/tvHomeEnergia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvHomehiilihydraatti"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvHomeSuola"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvHomeKuitu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvHomeProteiini"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvHomeRasva"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="0" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
