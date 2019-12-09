@@ -19,11 +19,9 @@ public class MealsList {
 
     public List<Meal> getMeals() {
         return meals;
-
     }
 
     private MealsList() {
         meals = new ArrayList<>();
-
     }
 }

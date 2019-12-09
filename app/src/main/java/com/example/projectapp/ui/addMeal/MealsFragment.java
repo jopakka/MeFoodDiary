@@ -32,6 +32,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectapp.R;
+import com.example.projectapp.ShowMealActivity;
 import com.example.projectapp.filehandler.FileReader;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
@@ -50,9 +51,10 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  */
 public class MealsFragment extends Fragment implements AdapterView.OnItemClickListener {
     private static final String TAG = "MyLog";
-    private static final int MYFILE = R.raw.resultset;
     private ListView lvSavedMeals;
     private List<Meal> meals;
+    public static final String EXTRA = "com.example.projectapp.ui.addMeal.EXTRA";
+    private ArrayAdapter adaper;
     /**
      * Creates fragment
      * @param inflater Inflates view with addmeal fragment
@@ -85,13 +87,17 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         super.onViewCreated(view, savedInstanceState);
         lvSavedMeals = getView().findViewById(R.id.lvSavedMeals);
         registerForContextMenu(lvSavedMeals);
-        showMeals();
+        adaper = new ArrayAdapter<>(getActivity(),
+                R.layout.food_list_layout,
+                meals);
+
+        lvSavedMeals.setOnItemClickListener(this);
     }
 
-    private void showMeals() {
-        lvSavedMeals.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.food_list_layout,
-                meals));
+    @Override
+    public void onResume() {
+        super.onResume();
+        lvSavedMeals.setAdapter(adaper);
     }
 
     @Override
@@ -102,7 +108,6 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
                 Log.i(TAG, "Poisto toimii");
                 Log.i(TAG, "Long click id " + info.id);
                 meals.remove((int) info.id);
-                showMeals();
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -118,7 +123,9 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      
+    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+        Intent nextActivity = new Intent(getActivity(), ShowMealActivity.class);
+        nextActivity.putExtra(EXTRA, i);
+        startActivity(nextActivity);
     }
 }

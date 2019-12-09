@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private ArrayList<Food> copy;
-    private ArrayList<Food> ingredients;
+    private List<Food> copy;
+    private List<Food> ingredients;
     private ListView haetut;
     private ListView valitut;
     private static final String TAG = "MyLog";
@@ -86,7 +86,9 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.addFood:
                 Log.i(TAG, "lisäysnappi toimii");
-        // https://stackoverflow.com/questions/10903754/input-text-dialog-android
+                /**
+                 * https://stackoverflow.com/questions/10903754/input-text-dialog-android
+                 */
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Nimeä ateria");
                 final EditText input = new EditText(this);
@@ -130,6 +132,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
         Log.i(TAG, "Item ID: " + copy.get(i).getId());
+        Log.i(TAG, "FoodItem " + FoodList.getInstance().getFoods().get(copy.get(i).getId()));
         ingredients.add(FoodList.getInstance().getFoods().get(copy.get(i).getId()));
         showIngredients();
 

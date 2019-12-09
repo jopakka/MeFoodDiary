@@ -2,25 +2,24 @@ package com.example.projectapp.food_stuff;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Meal {
-    private ArrayList<Food> foods;
+    private List<Food> foods;
     private String nimi;
 
-    public Meal(ArrayList<Food> list, String name) {
+    public Meal(List<Food> list, String name) {
         foods = new ArrayList<>();
         foods = list;
         nimi = name;
-
     }
-    public ArrayList getMeal() {
-        return foods;
 
+    public List<Food> getMeal() {
+        return foods;
     }
 
     @Override
     public String toString() {
-
         return nimi;
     }
 }

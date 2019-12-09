@@ -16,9 +16,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.projectapp.R;
+import com.example.projectapp.filehandler.FileReader;
+import com.example.projectapp.food_stuff.Food;
+import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
     private boolean searchVisible;
+    private static final int MYFILE = R.raw.resultset;
 
     /**
      * Happens when activity is created
@@ -43,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if(FoodList.getInstance().getFoods().size() == 0){
+            FileReader reader = new FileReader();
+            InputStream myFile = Objects.requireNonNull(getResources().openRawResource(MYFILE));
+            List<Food> ruokalista = reader.readFile(myFile);
+            FoodList.getInstance().addFoods(ruokalista);
+        }
     }
 
     /**
