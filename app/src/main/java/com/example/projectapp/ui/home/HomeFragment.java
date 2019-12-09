@@ -37,7 +37,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  * Class that contains Home fragmets stuff
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
-    public static final String EXTRA = "com.example.projectapp.EXTRA";
+    public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
 
     /**

@@ -1,11 +1,7 @@
 package com.example.projectapp.ui.addMeal;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -14,37 +10,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectapp.R;
-import com.example.projectapp.ShowMealActivity;
-import com.example.projectapp.filehandler.FileReader;
-import com.example.projectapp.food_stuff.Food;
-import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
-import com.example.projectapp.ui.home.foodinfo.FoodInfoActivity;
 
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Class that contains MealsFragment
@@ -53,8 +30,8 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     private static final String TAG = "MyLog";
     private ListView lvSavedMeals;
     private List<Meal> meals;
-    public static final String EXTRA = "com.example.projectapp.ui.addMeal.EXTRA";
-    private ArrayAdapter adaper;
+    public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
+    private ArrayAdapter adapter;
     /**
      * Creates fragment
      * @param inflater Inflates view with addmeal fragment
@@ -87,7 +64,7 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         super.onViewCreated(view, savedInstanceState);
         lvSavedMeals = getView().findViewById(R.id.lvSavedMeals);
         registerForContextMenu(lvSavedMeals);
-        adaper = new ArrayAdapter<>(getActivity(),
+        adapter = new ArrayAdapter<>(getActivity(),
                 R.layout.food_list_layout,
                 meals);
 
@@ -97,7 +74,7 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onResume() {
         super.onResume();
-        lvSavedMeals.setAdapter(adaper);
+        updateUi();
     }
 
     @Override
@@ -108,6 +85,7 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
                 Log.i(TAG, "Poisto toimii");
                 Log.i(TAG, "Long click id " + info.id);
                 meals.remove((int) info.id);
+                updateUi();
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -126,6 +104,11 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
         Intent nextActivity = new Intent(getActivity(), ShowMealActivity.class);
         nextActivity.putExtra(EXTRA, i);
+        Log.i(TAG, "meal list id: " + i);
         startActivity(nextActivity);
+    }
+
+    private void updateUi(){
+        lvSavedMeals.setAdapter(adapter);
     }
 }

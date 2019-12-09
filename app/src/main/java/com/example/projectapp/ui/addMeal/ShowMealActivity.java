@@ -1,4 +1,4 @@
-package com.example.projectapp;
+package com.example.projectapp.ui.addMeal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.projectapp.R;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;

@@ -10,7 +10,9 @@ public class Meal {
 
     public Meal(List<Food> list, String name) {
         foods = new ArrayList<>();
-        foods = list;
+        for(Food i: list){
+            foods.add(i);
+        }
         nimi = name;
     }
 
