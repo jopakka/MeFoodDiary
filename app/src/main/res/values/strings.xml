@@ -25,4 +25,5 @@
     <string name="text_energy">%1$skj/ %2$skcal</string>
     <string name="text_gram">%1$sg</string>
     <string name="text_mGram">%1$smg</string>
+    <string name="add_foodToHistory">Lisää ruoka</string>
 </resources>

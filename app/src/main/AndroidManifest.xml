@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.history.AddFoodToHistory"></activity>
         <activity
             android:name=".ui.addMeal.CreateMealActivity"
             android:label="@string/title_create_meal" />
