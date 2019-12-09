@@ -32,6 +32,7 @@ import com.example.projectapp.filehandler.FileReader;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
+import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.home.foodinfo.FoodInfoActivity;
 
 import java.io.InputStream;
@@ -46,7 +47,8 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class MealsFragment extends Fragment {
     private static final String TAG = "MyLog";
     private static final int MYFILE = R.raw.resultset;
-
+    private ListView lvSavedMeals;
+    private List<Meal> meals;
     /**
      * Creates fragment
      * @param inflater Inflates view with addmeal fragment
@@ -57,6 +59,7 @@ public class MealsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_meal, container, false);
         setHasOptionsMenu(true);
+        meals = MealsList.getInstance().getMeals();
         return root;
     }
 
@@ -73,4 +76,23 @@ public class MealsFragment extends Fragment {
         menu.findItem(R.id.action_search).setVisible(false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        lvSavedMeals = getView().findViewById(R.id.lvSavedMeals);
+
+        showMeals();
+    }
+
+    private void showMeals() {
+        lvSavedMeals.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.food_list_layout,
+                meals));
+    }
+
+    public void updateUI() {
+
+        showMeals();
+
+    }
 }

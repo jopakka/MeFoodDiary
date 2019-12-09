@@ -17,4 +17,10 @@ public class Meal {
         return foods;
 
     }
+
+    @Override
+    public String toString() {
+
+        return nimi;
+    }
 }

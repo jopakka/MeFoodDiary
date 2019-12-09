@@ -23,6 +23,8 @@ import com.example.projectapp.filehandler.FileReader;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
+import com.example.projectapp.food_stuff.MealsList;
+import com.example.projectapp.ui.MainActivity;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -99,6 +101,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                         Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_LONG).show();
                         ingredients.clear();
                         showIngredients();
+                        MealsList.getInstance().addMeal(ateria);
                         onSupportNavigateUp();
                     }
                 });
@@ -212,5 +215,6 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     public void onBackPressed() {
         Log.i(TAG, "takaisin ateriafragmenttiin");
         super.onBackPressed();
+
     }
 }
