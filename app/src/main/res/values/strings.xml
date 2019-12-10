@@ -8,6 +8,7 @@
     <string name="action_info">Tietoa</string>
     <string name="action_search">Etsi</string>
     <string name="foodInfo_per100">Arvot per 100g</string>
+    <string name="foodInfo_average_per100">Arvot keskimäärin per 100g</string>
     <string name="foodInfo_energia">Energiaa:</string>
     <string name="foodInfo_rasva">Rasvaa:</string>
     <string name="foodInfo_hiilihydraatti">Hiilihydraattia:</string>

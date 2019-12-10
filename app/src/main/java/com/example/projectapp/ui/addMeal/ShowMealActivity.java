@@ -22,6 +22,7 @@ import java.util.Objects;
  */
 public class ShowMealActivity extends AppCompatActivity {
     private static final String TAG = "MyLog";
+    private int mealId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +30,26 @@ public class ShowMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_meal);
 
         Bundle b = getIntent().getExtras();
-        int i = b.getInt(MainActivity.EXTRA, 0);
+        mealId = b.getInt(MainActivity.EXTRA, 0);
 
-        Log.i(TAG, "Meal ID: " + i +" " + MealsList.getInstance().getMeals().get(i).getMeal());
+        Log.i(TAG, "Meal ID: " + mealId +" " + MealsList.getInstance().getMeals().get(mealId).getMeal());
 
         ((TextView)findViewById(R.id.tvFoodName))
-                .setText(MealsList.getInstance().getMeals().get(i).toString());
+                .setText(MealsList.getInstance().getMeals().get(mealId).toString());
 
         ListView lv = findViewById(R.id.lvMealFoods);
         lv.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
-                MealsList.getInstance().getMeals().get(i).getMeal()));
+                MealsList.getInstance().getMeals().get(mealId).getMeal()));
+
+
+    }
+
+    private int counter(){
+        for(int i = 0; i < MealsList.getInstance().getMeals().get(mealId).getMeal().size(); i++){
+
+        }
+        return 0;
     }
 
     @Override
