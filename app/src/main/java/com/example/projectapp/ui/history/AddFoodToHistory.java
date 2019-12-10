@@ -2,11 +2,9 @@ package com.example.projectapp.ui.history;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,14 +12,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projectapp.R;
-import com.example.projectapp.food_stuff.FoodHistory;
-import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
-import com.example.projectapp.ui.AppInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -35,6 +29,8 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        HistoryFragment historyF = new HistoryFragment();
         setContentView(R.layout.activity_add_food_to_history);
         //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -79,9 +75,6 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         String item = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
 
-        if(position != 0) {
-
-        }
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {

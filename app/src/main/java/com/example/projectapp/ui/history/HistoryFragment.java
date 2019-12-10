@@ -1,9 +1,7 @@
 package com.example.projectapp.ui.history;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projectapp.R;
 import com.example.projectapp.food_stuff.Food;
-import com.example.projectapp.food_stuff.FoodHistory;
+import com.example.projectapp.food_stuff.FoodAtDate;
 import com.example.projectapp.food_stuff.Meal;
 
 import java.util.Calendar;
@@ -33,7 +31,7 @@ public class HistoryFragment extends Fragment {
 
     private static final String TAG = "MyLog";
     private Calendar dateSelected;
-    private List<FoodHistory> foodHistory;
+    private List<FoodAtDate> foodAtDate;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
@@ -44,7 +42,7 @@ public class HistoryFragment extends Fragment {
             public void onClick(View v) {
                 Intent addFood = new Intent(getActivity(), AddFoodToHistory.class);
                 startActivity(addFood);
-                foodHistory.add(new FoodHistory(dateSelected.get(Calendar.DAY_OF_MONTH), dateSelected.get(Calendar.MONTH), dateSelected.get(Calendar.YEAR)));
+                foodAtDate.add(new FoodAtDate(dateSelected.get(Calendar.DAY_OF_MONTH), dateSelected.get(Calendar.MONTH), dateSelected.get(Calendar.YEAR)));
             }
         });
 
@@ -79,11 +77,11 @@ public class HistoryFragment extends Fragment {
 
     public void addFoodHistory(Food food) {
         boolean loop = true;
-        for(int i = 0; foodHistory.size() > 0 && loop == true; i++) {
-            if(foodHistory.get(i).getDay() == dateSelected.get(Calendar.DAY_OF_MONTH)
-                    && foodHistory.get(i).getMonth() == dateSelected.get(Calendar.MONTH)
-                    && foodHistory.get(i).getYear() == dateSelected.get(Calendar.YEAR)) {
-                foodHistory.get(i).addFood(food);
+        for(int i = 0; foodAtDate.size() > 0 && loop == true; i++) {
+            if(foodAtDate.get(i).getDay() == dateSelected.get(Calendar.DAY_OF_MONTH)
+                    && foodAtDate.get(i).getMonth() == dateSelected.get(Calendar.MONTH)
+                    && foodAtDate.get(i).getYear() == dateSelected.get(Calendar.YEAR)) {
+                foodAtDate.get(i).addFood(food);
                 loop = false;
             }
         }
@@ -91,11 +89,11 @@ public class HistoryFragment extends Fragment {
 
     public void addMealHistory(Meal meal) {
         boolean loop = true;
-        for(int i = 0; foodHistory.size() > 0 && loop == true; i++) {
-            if(foodHistory.get(i).getDay() == dateSelected.get(Calendar.DAY_OF_MONTH)
-                    && foodHistory.get(i).getMonth() == dateSelected.get(Calendar.MONTH)
-                    && foodHistory.get(i).getYear() == dateSelected.get(Calendar.YEAR)) {
-                foodHistory.get(i).addMeal(meal);
+        for(int i = 0; foodAtDate.size() > 0 && loop == true; i++) {
+            if(foodAtDate.get(i).getDay() == dateSelected.get(Calendar.DAY_OF_MONTH)
+                    && foodAtDate.get(i).getMonth() == dateSelected.get(Calendar.MONTH)
+                    && foodAtDate.get(i).getYear() == dateSelected.get(Calendar.YEAR)) {
+                foodAtDate.get(i).addMeal(meal);
                 loop = false;
             }
         }
