@@ -29,7 +29,7 @@ import java.util.Objects;
 public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
     private static final String TAG = "MyLog";
-    private String[] mealNames;
+    List<String> mealNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
             mealNames[i] = (MealsList.getInstance().getMeals().get(i).getMeal().toString());
         }
         //Creating the ArrayAdapter instance having the meal list
-        ArrayAdapter<String> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, mealNames);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, mealNames);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         mealList.setAdapter(aa);
