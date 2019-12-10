@@ -53,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+
+        String json = gson.toJson(new ArrayList<>());
+        String mealList = pref.getString("MealsList", json);
+        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
+        List<Meal> list = gson.fromJson(mealList, token.getType());
+
+        MealsList.getInstance().replaceList(list);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration
                 .Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
@@ -69,27 +79,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
-        List<Meal> list = new ArrayList<>();
-        String json = gson.toJson(list);
-        String mealList = pref.getString("MealsList", json);
-        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
-        list = gson.fromJson(mealList, token.getType());
-        MealsList.getInstance().replaceList(list);
-
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause() {
+    protected void onDestroy() {
         String json = gson.toJson(MealsList.getInstance().getMeals());
+
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = pref.edit();
         prefEdit.putString("MealsList", json);
         prefEdit.apply();
 
-        super.onPause();
+        super.onDestroy();
     }
 
     /**
