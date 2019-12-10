@@ -28,4 +28,5 @@
     <string name="text_mGram">%1$smg</string>
     <string name="add_foodToHistory">Lisää ruoka</string>
     <string name="meal_food_value">Aterian ravintotiedot</string>
+    <string name="add_mealToHistory">Valitse ateria:</string>
 </resources>

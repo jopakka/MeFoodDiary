@@ -17,9 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.projectapp.R;
+import com.example.projectapp.food_stuff.Food;
+import com.example.projectapp.food_stuff.FoodHistory;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -28,6 +31,8 @@ import java.util.Date;
 public class HistoryFragment extends Fragment {
 
     private static final String TAG = "MyLog";
+    private Calendar dateSelected;
+    private List<FoodHistory> foodHistory;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
@@ -38,7 +43,7 @@ public class HistoryFragment extends Fragment {
             public void onClick(View v) {
                 Intent addFood = new Intent(getActivity(), AddFoodToHistory.class);
                 startActivity(addFood);
-                //startActivity(new Intent(PopUp.class)); popup alku
+                foodHistory.add(new FoodHistory(dateSelected));
             }
         });
 
@@ -49,6 +54,7 @@ public class HistoryFragment extends Fragment {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
+                dateSelected = calendar;
                 //Log.i(TAG, "" + calendar.get(Calendar.DAY_OF_MONTH));
             }
         });
@@ -69,4 +75,9 @@ public class HistoryFragment extends Fragment {
         CalendarView cv = getView().findViewById(R.id.calendarView);
         cv.setMaxDate(new Date().getTime());
     }
+
+    public void addFood(Food food) {
+
+    }
+
 }

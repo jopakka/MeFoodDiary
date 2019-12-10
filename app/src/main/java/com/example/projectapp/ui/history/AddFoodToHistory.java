@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projectapp.R;
+import com.example.projectapp.food_stuff.FoodHistory;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.AppInfoActivity;
@@ -40,17 +41,18 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         Spinner mealList = findViewById(R.id.spinner);
         mealList.setOnItemSelectedListener(this);
 
-        for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
-            mealNames[i] = (MealsList.getInstance().getMeals().get(i).getMeal().toString());
+        // Spinner Drop down elements
+        mealNames.add(0, "");
+        for (int i = 1; i < MealsList.getInstance().getMeals().size(); i++) {
+            mealNames.add(MealsList.getInstance().getMeals().get(i).toString());
         }
-        //Creating the ArrayAdapter instance having the meal list
+
+        // Creating adapter for spinner
         ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, mealNames);
+        // Drop down layout style - list view with radio button
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
+        // attaching data adapter to spinner
         mealList.setAdapter(aa);
-
-
-
     }
 
     /**@Override
@@ -73,8 +75,13 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     //Performing action onItemSelected and onNothing selected
     @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(),mealNames[position] , Toast.LENGTH_LONG).show();
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
+
+        if(position != 0) {
+
+        }
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
