@@ -26,6 +26,7 @@ import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -55,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
 
-        List<Meal> list = new ArrayList<>();
-        String json = gson.toJson(list);
+        String json = gson.toJson(new ArrayList<>());
         String mealList = pref.getString("MealsList", json);
-        list = gson.fromJson(mealList, list.getClass());
+        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
+        List<Meal> list = gson.fromJson(mealList, token.getType());
+
         MealsList.getInstance().replaceList(list);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = pref.edit();
         prefEdit.putString("MealsList", json);
-        prefEdit.commit();
+        prefEdit.apply();
 
         super.onDestroy();
     }
