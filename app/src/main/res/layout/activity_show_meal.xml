@@ -27,10 +27,155 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFoodName" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:showDividers="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight=".5"
+            android:orientation="vertical"
+            android:showDividers="none">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_energia"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_hiilihydraatti"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_suola"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_kuitu"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_proteiini"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_rasva"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:orientation="vertical"
+            android:showDividers="none">
+
+            <TextView
+                android:id="@+id/tvEnergia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_energia"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/tvHiilihydraatit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_hiilihydraatti"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/tvSuola"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_suola"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/tvKuitu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_kuitu"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/tvProteiini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_proteiini"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+            <TextView
+                android:id="@+id/tvRasva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/info_textbox_margin"
+                android:text="@string/foodInfo_rasva"
+                android:textSize="@dimen/info_textbox_font_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/foodInfo_average_per100"
+        android:textAlignment="center"
+        android:textSize="@dimen/info_textbox_font_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
