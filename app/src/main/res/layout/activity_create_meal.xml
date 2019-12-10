@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/valitut"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/haku"
@@ -67,19 +67,23 @@
 
     <ListView
         android:id="@+id/valitut"
-        android:layout_width="413dp"
-        android:layout_height="380dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="370dp"
+        android:layout_height="381dp"
+        android:layout_marginTop="132dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/haku" />
 
     <ListView
         android:id="@+id/haetut"
-        android:layout_width="409dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="342dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:fadeScrollbars="false"
         android:fastScrollEnabled="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/valitut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hakuButton" />

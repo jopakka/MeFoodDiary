@@ -26,6 +26,7 @@ import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -52,15 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
-
-        List<Meal> list = new ArrayList<>();
-        String json = gson.toJson(list);
-        String mealList = pref.getString("MealsList", json);
-        list = gson.fromJson(mealList, list.getClass());
-        MealsList.getInstance().replaceList(list);
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration
                 .Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
@@ -77,15 +69,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        String json = gson.toJson(MealsList.getInstance().getMeals());
+    protected void onStart() {
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+        List<Meal> list = new ArrayList<>();
+        String json = gson.toJson(list);
+        String mealList = pref.getString("MealsList", json);
+        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
+        list = gson.fromJson(mealList, token.getType());
+        MealsList.getInstance().replaceList(list);
 
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        String json = gson.toJson(MealsList.getInstance().getMeals());
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = pref.edit();
         prefEdit.putString("MealsList", json);
-        prefEdit.commit();
+        prefEdit.apply();
 
-        super.onDestroy();
+        super.onPause();
     }
 
     /**
