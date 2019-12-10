@@ -79,14 +79,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         String json = gson.toJson(MealsList.getInstance().getMeals());
-
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = pref.edit();
         prefEdit.putString("MealsList", json);
         prefEdit.apply();
+        super.onPause();
+    }
 
+    @Override
+    protected void onDestroy() {
+        String json = gson.toJson(MealsList.getInstance().getMeals());
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEdit = pref.edit();
+        prefEdit.putString("MealsList", json);
+        prefEdit.apply();
         super.onDestroy();
     }
 
