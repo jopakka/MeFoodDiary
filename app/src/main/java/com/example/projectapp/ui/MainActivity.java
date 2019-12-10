@@ -1,6 +1,8 @@
 package com.example.projectapp.ui;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,18 +18,31 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.projectapp.R;
+import com.example.projectapp.filehandler.FileReader;
+import com.example.projectapp.food_stuff.Food;
+import com.example.projectapp.food_stuff.FoodList;
+import com.example.projectapp.food_stuff.Meal;
+import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.addMeal.CreateMealActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Class that contains MainActivity stuffs and action bar items
+ * @author Joonas Niemi
  */
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
+    private static final String MEALPREF = "MealPref";
     private boolean searchVisible;
+    private static final int MYFILE = R.raw.resultset;
+    private Gson gson = new Gson();
 
     /**
      * Happens when activity is created
@@ -38,11 +53,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+
+        List<Meal> list = new ArrayList<>();
+        String json = gson.toJson(list);
+        String mealList = pref.getString("MealsList", json);
+        list = gson.fromJson(mealList, list.getClass());
+        MealsList.getInstance().replaceList(list);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration
+                .Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if(FoodList.getInstance().getFoods().size() == 0){
+            FileReader reader = new FileReader();
+            InputStream myFile = Objects.requireNonNull(getResources().openRawResource(MYFILE));
+            List<Food> ruokalista = reader.readFile(myFile);
+            FoodList.getInstance().addFoods(ruokalista);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        String json = gson.toJson(MealsList.getInstance().getMeals());
+
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEdit = pref.edit();
+        prefEdit.putString("MealsList", json);
+        prefEdit.commit();
+
+        super.onDestroy();
     }
 
     /**

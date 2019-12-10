@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ *
+ * @author Elmeri Katainen
+ */
 public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
     private static final String TAG = "MyLog";

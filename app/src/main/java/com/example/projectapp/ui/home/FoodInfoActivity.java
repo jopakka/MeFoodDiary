@@ -1,4 +1,4 @@
-package com.example.projectapp.ui.home.foodinfo;
+package com.example.projectapp.ui.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
@@ -20,6 +20,7 @@ import java.util.Objects;
 
 /**
  * Class that contains FoodInfo Activity stuff
+ * @author Joonas Niemi
  */
 public class FoodInfoActivity extends AppCompatActivity {
     private static final String TAG = "MyLog";
@@ -74,7 +75,6 @@ public class FoodInfoActivity extends AppCompatActivity {
      * @param menu Menu
      * @return Return boolean of options bar status
      */
-    //Create action bar buttons
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
@@ -88,7 +88,6 @@ public class FoodInfoActivity extends AppCompatActivity {
      * @param item Options menu item
      * @return return boolen of selected item
      */
-    //Options menu item click events
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Class that contains singleton list of foods
+ * @author Joonas Niemi
  */
 public class FoodList {
     private static final FoodList ourInstance = new FoodList();

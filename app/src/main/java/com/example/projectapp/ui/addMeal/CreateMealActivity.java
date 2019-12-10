@@ -3,7 +3,9 @@ package com.example.projectapp.ui.addMeal;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -25,14 +27,19 @@ import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.MainActivity;
+import com.google.gson.Gson;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private ArrayList<Food> copy;
-    private ArrayList<Food> ingredients;
+    private List<Food> copy;
+    private List<Food> ingredients;
     private ListView haetut;
     private ListView valitut;
     private static final String TAG = "MyLog";
@@ -86,35 +93,51 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.addFood:
                 Log.i(TAG, "lisäysnappi toimii");
-        // https://stackoverflow.com/questions/10903754/input-text-dialog-android
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Nimeä ateria");
-                final EditText input = new EditText(this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                builder.setPositiveButton("Tallenna", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ateriaNimi = input.getText().toString();
-                        Meal ateria = new Meal(ingredients, ateriaNimi);
-                        ateriaNimi = "";
-                        Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_LONG).show();
-                        ingredients.clear();
-                        showIngredients();
-                        MealsList.getInstance().addMeal(ateria);
-                        onSupportNavigateUp();
-                    }
-                });
-                builder.setNegativeButton("Peruuta", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                if(ingredients.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Lisää ainesosia listalle", Toast.LENGTH_SHORT).show();
+                } else {
+                    /**
+                     * https://stackoverflow.com/questions/10903754/input-text-dialog-android
+                     */
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Nimeä ateria");
+                    final EditText input = new EditText(this);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    input.setHint("Anna aterialle nimi");
+                    builder.setView(input);
+                    builder.setPositiveButton("Tallenna", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!input.getText().toString().isEmpty()) {
+                                ateriaNimi = input.getText().toString();
+                                Meal ateria = new Meal(ingredients, ateriaNimi);
+                                Log.i(TAG, "Juuri luotu ateria: " + ateria.getMeal());
+                                ateriaNimi = "";
+                                Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_SHORT).show();
+                                ingredients.clear();
+                                showIngredients();
+                                MealsList.getInstance().addMeal(ateria);
 
-                builder.show();
-                break;
+                                Log.i(TAG, "MealsList arvo " + (MealsList.getInstance().getMeals().size() - 1)
+                                        + ": " + MealsList.getInstance().getMeals().get(MealsList.getInstance()
+                                        .getMeals().size() - 1).getMeal());
 
+                                onSupportNavigateUp();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Anna aterialle nimi!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Peruuta", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+                    break;
+                }
 
         }
     }
@@ -130,6 +153,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
         Log.i(TAG, "Item ID: " + copy.get(i).getId());
+        Log.i(TAG, "FoodItem " + FoodList.getInstance().getFoods().get(copy.get(i).getId()));
         ingredients.add(FoodList.getInstance().getFoods().get(copy.get(i).getId()));
         showIngredients();
 

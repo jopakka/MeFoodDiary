@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+/**
+ *
+ * @author Elmeri Katainen
+ */
 class PopUp extends Activity {
 
     @Override

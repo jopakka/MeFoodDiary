@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * Class that contains AppInfo activity stuffs
+ * @author Joonas Niemi
  */
 public class AppInfoActivity extends AppCompatActivity {
     private static final String TAG = "MyLog";

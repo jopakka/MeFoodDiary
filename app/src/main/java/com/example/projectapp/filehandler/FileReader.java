@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Class that reads file
+ * @author Joonas Niemi
  */
 public class FileReader {
     private static final String TAG = "MyLog";

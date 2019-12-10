@@ -21,6 +21,10 @@ import com.example.projectapp.R;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ *
+ * @author Elmeri Katainen
+ */
 public class HistoryFragment extends Fragment {
 
     private static final String TAG = "MyLog";

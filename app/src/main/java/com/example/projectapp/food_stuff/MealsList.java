@@ -3,14 +3,16 @@ package com.example.projectapp.food_stuff;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class MealsList {
-
     private List<Meal> meals;
-
     private static final MealsList ourInstance = new MealsList();
 
-    public void addMeal(Meal meals) {
-        this.meals.add(meals);
+    private MealsList() {
+        meals = new ArrayList<>();
     }
 
     public static MealsList getInstance() {
@@ -19,11 +21,13 @@ public class MealsList {
 
     public List<Meal> getMeals() {
         return meals;
-
     }
 
-    private MealsList() {
-        meals = new ArrayList<>();
+    public void addMeal(Meal meal) {
+        meals.add(meal);
+    }
 
+    public void replaceList(List<Meal> meals){
+        this.meals = meals;
     }
 }

@@ -24,7 +24,6 @@ import com.example.projectapp.filehandler.FileReader;
 import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.ui.MainActivity;
-import com.example.projectapp.ui.home.foodinfo.FoodInfoActivity;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,14 +34,15 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Class that contains Home fragmets stuff
+ * @author Joonas Niemi
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
-
-    // Tiedosto on https://fineli.fi/fineli/fi/elintarvikkeet
+    /**
+     * Tiedosto on https://fineli.fi/fineli/fi/elintarvikkeet
+     */
     private static final int MYFILE = R.raw.resultset;
-
     private ListView lvFoods;
     private ArrayList<Food> copy;
     private EditText et;
@@ -72,7 +72,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * Buttons onClick events
      * @param view Current view
      */
-    //Button onClick events
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -104,7 +103,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * @param i Visible part of list
      * @param l Whole list
      */
-    //ArrayList item click listener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
         Log.i(TAG,  "Item ID: " + copy.get(i).getId());
@@ -120,7 +118,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * @param view Current view
      * @param savedInstanceState Bundle
      */
-    //After view is created
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         et = Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind);
@@ -140,7 +137,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * @param menu Which menu will be created
      * @param inflater MenuInflater
      */
-    //Create top bar buttons
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -150,9 +146,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
     /**
      * Find items that contains word(s) given in EditText box
      */
-    // Show all foods or find specific one
     private void searchFoods() {
-        // If FoodList is empty, create new list
+        /**
+         * If FoodList is empty, create new list
+         */
         if(FoodList.getInstance().getFoods().size() == 0){
             FileReader reader = new FileReader();
             InputStream myFile = Objects.requireNonNull(getActivity()).getResources().openRawResource(MYFILE);
@@ -160,12 +157,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        //Food you want to find
+        /**
+         * Food you want to find
+         */
         EditText findText = Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind);
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
 
-        //Find specific foods in list
+        /**
+         * Find specific foods in list
+         */
         copy = new ArrayList();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
@@ -179,7 +180,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
             }
         }
 
-        //Set listView of foods
+        /**
+         * Set listView of foods
+         */
         lvFoods.setAdapter(new ArrayAdapter<>(getActivity(),
                 R.layout.food_list_layout,
                 copy));
