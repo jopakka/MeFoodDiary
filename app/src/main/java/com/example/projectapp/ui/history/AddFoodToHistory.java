@@ -31,8 +31,19 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_to_history);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        Spinner mealList = findViewById(R.id.spinner);
+        mealList.setOnItemSelectedListener(this);
+
+        for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
+            mealNames[i] = (MealsList.getInstance().getMeals().get(i).getMeal().toString());
+        }
+        //Creating the ArrayAdapter instance having the meal list
+        ArrayAdapter<String> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, mealNames);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        mealList.setAdapter(aa);
 
 
 
@@ -47,6 +58,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
             mealNames[i] = (MealsList.getInstance().getMeals().get(i).getMeal().toString());
         }
+        Log.i(TAG, "" + mealNames);
         //Creating the ArrayAdapter instance having the meal list
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, mealNames);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
