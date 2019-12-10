@@ -118,6 +118,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                                 showIngredients();
                                 MealsList.getInstance().addMeal(ateria);
 
+
                                 Log.i(TAG, "MealsList arvo " + (MealsList.getInstance().getMeals().size() - 1)
                                         + ": " + MealsList.getInstance().getMeals().get(MealsList.getInstance()
                                         .getMeals().size() - 1).getMeal());
