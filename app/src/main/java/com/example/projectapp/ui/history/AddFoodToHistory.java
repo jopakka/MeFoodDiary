@@ -2,11 +2,9 @@ package com.example.projectapp.ui.history;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,13 +12,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projectapp.R;
-import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
-import com.example.projectapp.ui.AppInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -29,17 +24,31 @@ import java.util.Objects;
 public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
     private static final String TAG = "MyLog";
-    private String[] mealNames;
+    List<String> mealNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        HistoryFragment historyF = new HistoryFragment();
         setContentView(R.layout.activity_add_food_to_history);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        Spinner mealList = findViewById(R.id.spinner);
+        mealList.setOnItemSelectedListener(this);
 
+        // Spinner Drop down elements
+        mealNames.add(0, "");
+        for (int i = 1; i < MealsList.getInstance().getMeals().size(); i++) {
+            mealNames.add(MealsList.getInstance().getMeals().get(i).toString());
+        }
 
-
+        // Creating adapter for spinner
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, mealNames);
+        // Drop down layout style - list view with radio button
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        mealList.setAdapter(aa);
     }
 
     /**@Override
@@ -51,6 +60,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
             mealNames[i] = (MealsList.getInstance().getMeals().get(i).getMeal().toString());
         }
+        Log.i(TAG, "" + mealNames);
         //Creating the ArrayAdapter instance having the meal list
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, mealNames);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,8 +71,10 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     //Performing action onItemSelected and onNothing selected
     @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(),mealNames[position] , Toast.LENGTH_LONG).show();
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
+
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
