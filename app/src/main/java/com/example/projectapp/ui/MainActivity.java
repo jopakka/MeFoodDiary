@@ -55,12 +55,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
-
         String json = gson.toJson(new ArrayList<>());
         String mealList = pref.getString("MealsList", json);
         TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
         List<Meal> list = gson.fromJson(mealList, token.getType());
-
         MealsList.getInstance().replaceList(list);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -79,15 +77,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        String json = gson.toJson(MealsList.getInstance().getMeals());
+    protected void onPause() {
+        saveGson();
+        super.onPause();
+    }
 
+    @Override
+    protected void onStop() {
+        saveGson();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        saveGson();
+        super.onDestroy();
+    }
+
+    private void saveGson(){
+        String json = gson.toJson(MealsList.getInstance().getMeals());
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEdit = pref.edit();
         prefEdit.putString("MealsList", json);
         prefEdit.apply();
-
-        super.onDestroy();
     }
 
     /**
