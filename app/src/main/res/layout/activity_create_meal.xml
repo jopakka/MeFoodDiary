@@ -32,14 +32,12 @@
         android:id="@+id/addFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/add_meal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valitut"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/haku"
@@ -68,23 +66,25 @@
     <ListView
         android:id="@+id/valitut"
         android:layout_width="370dp"
-        android:layout_height="381dp"
-        android:layout_marginTop="132dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/addFood"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/haku" />
+        app:layout_constraintTop_toBottomOf="@+id/haetut" />
 
     <ListView
         android:id="@+id/haetut"
         android:layout_width="342dp"
         android:layout_height="95dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/border"
         android:fadeScrollbars="false"
         android:fastScrollEnabled="true"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/valitut"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hakuButton" />
 
