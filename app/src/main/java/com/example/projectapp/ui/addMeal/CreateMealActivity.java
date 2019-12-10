@@ -33,6 +33,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private List<Food> copy;
     private List<Food> ingredients;

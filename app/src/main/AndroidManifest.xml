@@ -14,7 +14,7 @@
         <activity
             android:name=".ui.addMeal.CreateMealActivity"
             android:label="@string/title_create_meal" />
-        <activity android:name=".ui.home.foodinfo.FoodInfoActivity" />
+        <activity android:name=".ui.home.FoodInfoActivity" />
         <activity android:name=".ui.AppInfoActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>

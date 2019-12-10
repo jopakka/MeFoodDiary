@@ -4,6 +4,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class Meal {
     private List<Food> foods;
     private String nimi;

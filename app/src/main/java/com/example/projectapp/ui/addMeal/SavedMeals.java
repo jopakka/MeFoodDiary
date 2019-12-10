@@ -11,6 +11,10 @@ import com.example.projectapp.food_stuff.Meal;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class SavedMeals extends AppCompatActivity {
     private static final int MYFILE = R.raw.resultset;
     private static final String TAG = "MyLog";

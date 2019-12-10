@@ -3,6 +3,10 @@ package com.example.projectapp.food_stuff;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Miro Norring
+ */
 public class MealsList {
     private List<Meal> meals;
     private static final MealsList ourInstance = new MealsList();

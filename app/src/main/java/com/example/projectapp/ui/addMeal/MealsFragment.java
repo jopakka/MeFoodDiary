@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * Class that contains MealsFragment
+ * @author Miro Norring
  */
 public class MealsFragment extends Fragment implements AdapterView.OnItemClickListener {
     private static final String TAG = "MyLog";

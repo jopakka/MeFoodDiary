@@ -2,6 +2,7 @@ package com.example.projectapp.food_stuff;
 
 /**
  * Food object class
+ * @author Joonas Niemi
  */
 public class Food {
     private final String name;

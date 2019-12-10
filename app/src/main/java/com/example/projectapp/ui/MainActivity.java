@@ -34,6 +34,7 @@ import java.util.Objects;
 
 /**
  * Class that contains MainActivity stuffs and action bar items
+ * @author Joonas Niemi
  */
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";

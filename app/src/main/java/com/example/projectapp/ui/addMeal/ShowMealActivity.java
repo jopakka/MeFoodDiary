@@ -16,6 +16,10 @@ import com.example.projectapp.ui.MainActivity;
 
 import java.util.Objects;
 
+/**
+ *
+ * @author Joonas Niemi
+ */
 public class ShowMealActivity extends AppCompatActivity {
     private static final String TAG = "MyLog";
 
