@@ -44,4 +44,11 @@ public class FoodAtDate {
     public Meal getMeal() {
         return this.meal;
     }
+
+    public boolean isMeal() {
+        if(food == null)
+            return true;
+        else
+            return false;
+    }
 }
