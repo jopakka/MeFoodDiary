@@ -12,10 +12,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projectapp.R;
+import com.example.projectapp.food_stuff.FoodHistory;
 import com.example.projectapp.food_stuff.MealsList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -25,6 +27,9 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     private static final String TAG = "MyLog";
     List<String> mealNames = new ArrayList<String>();
+    private int day;
+    private int month;
+    private int year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         HistoryFragment historyF = new HistoryFragment();
         setContentView(R.layout.activity_add_food_to_history);
         //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
+        dateToInt(Objects.requireNonNull(getIntent().getExtras()).getString(HistoryFragment.EXTRA, "0_0_0"));
         Spinner mealList = findViewById(R.id.spinner);
         mealList.setOnItemSelectedListener(this);
 
@@ -74,8 +79,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
-
-
+        FoodHistory.getInstance().addFoodHistory(day, month, year, );
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -100,6 +104,22 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_info).setVisible(false);
         return true;
+    }
+
+    public void dateToInt(String string) {
+        String[] strArray = string.split("_");
+        for(int i = 0; i < strArray.length; i++){
+            if(i == 0)
+                day = Integer.parseInt(strArray[i]);
+            if(i == 1)
+                month = Integer.parseInt(strArray[i]);
+            if(i == 2)
+                year = Integer.parseInt(strArray[i]);
+        }
+    }
+
+    public void findHistory() {
+
     }
 
     /**@Override

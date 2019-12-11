@@ -2,6 +2,7 @@ package com.example.projectapp.ui.history;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
 
     private static final String TAG = "MyLog";
+    public static final String EXTRA = "com.example.projectapp.ui.history.EXTRA";
     private Calendar dateSelected;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,8 +41,9 @@ public class HistoryFragment extends Fragment {
         buttonLisaaRuoka.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addFood = new Intent(getActivity(), AddFoodToHistory.class);
-                startActivity(addFood);
+                Intent addFoodToHistory = new Intent(getActivity(), AddFoodToHistory.class);
+                addFoodToHistory.putExtra(EXTRA, dateSelected.get(Calendar.DAY_OF_MONTH) + "_" + dateSelected.get(Calendar.MONTH) + "_" + dateSelected.get(Calendar.YEAR));
+                startActivity(addFoodToHistory);
                 //foodAtDate.add(new FoodAtDate(dateSelected.get(Calendar.DAY_OF_MONTH), dateSelected.get(Calendar.MONTH), dateSelected.get(Calendar.YEAR)));
             }
         });
@@ -53,6 +56,7 @@ public class HistoryFragment extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
                 dateSelected = calendar;
+                Log.i(TAG, Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + Integer.toString(calendar.get(Calendar.MONTH)));
             }
         });
         return root;
