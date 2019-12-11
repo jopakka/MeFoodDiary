@@ -14,9 +14,7 @@ public class Meal {
 
     public Meal(List<Food> list, String name) {
         foods = new ArrayList<>();
-        for(Food i: list){
-            foods.add(i);
-        }
+        foods.addAll(list);
         nimi = name;
     }
 
