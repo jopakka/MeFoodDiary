@@ -1,5 +1,6 @@
 package com.example.projectapp.food_stuff;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAtDate {
@@ -7,29 +8,21 @@ public class FoodAtDate {
     private int day;
     private int month;
     private int year;
-    private List<Food> foods;
-    private List<Meal> meals;
+    private Food food;
+    private Meal meal;
 
-    public FoodAtDate(int day, int month, int year) {
+    public FoodAtDate(int day, int month, int year, Food food) {
+        this.food = food;
         this.day = day;
         this.month = month;
         this.year = year;
     }
 
-    public void addFood(Food food) {
-        this.foods.add(food);
-    }
-
-    public void addMeal(Meal meal) {
-        this.meals.add(meal);
-    }
-
-    public List<Food> getFoods() {
-        return foods;
-    }
-
-    public List<Meal> getMeals() {
-        return meals;
+    public FoodAtDate(int day, int month, int year, Meal meal) {
+        this.meal = meal;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     public int getDay() {
@@ -42,5 +35,13 @@ public class FoodAtDate {
 
     public int getYear() {
         return this.year;
+    }
+
+    public Food getFood() {
+        return this.food;
+    }
+
+    public Meal getMeal() {
+        return this.meal;
     }
 }
