@@ -79,7 +79,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
-        FoodHistory.getInstance().addFoodHistory(day, month, year, );
+        //FoodHistory.getInstance().addFoodHistory(day, month, year, );
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
