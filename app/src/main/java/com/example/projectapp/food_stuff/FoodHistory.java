@@ -22,4 +22,8 @@ public class FoodHistory {
     public List<FoodAtDate> getFoodHistory() {
         return this.foodHistory;
     }
+
+    public void replaceList(List<FoodAtDate> list){
+        foodHistory = list;
+    }
 }
