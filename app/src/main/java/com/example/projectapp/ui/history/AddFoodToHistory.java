@@ -54,6 +54,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
         Spinner mealList = findViewById(R.id.spinner);
         mealList.setOnItemSelectedListener(this);
+        copy = new ArrayList<>();
 
         mealNames.add(0, ""); // Spinner Drop down elements
         for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
