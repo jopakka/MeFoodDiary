@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Class for CreateMealActivity
  * @author Miro Norring
  */
 public class CreateMealActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -48,6 +48,10 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     private static final int MYFILE = R.raw.resultset;
     private String ateriaNimi = "";
 
+    /**
+     * onCreate method
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +68,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     }
 
     /**
-     * Contains onClick methods
-     *
+     * Contains onClick events
      * @param view Current view
      */
     @Override
@@ -144,8 +147,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     }
 
     /**
-     * Contains onItemClick
-     *
+     * Contains onItemClick events
      * @param parent
      * @param view
      * @param i
@@ -162,14 +164,22 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    /**
+     * Set adapter for valitut listView
+     */
     private void showIngredients() {
         valitut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
                 ingredients));
     }
 
+    /**
+     * Search foods on FoodList singleton
+     */
     private void searchFoods() {
-        //Food you want to find
+        /**
+         * Food you want to find
+         */
         EditText findText = findViewById(R.id.haku);
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
@@ -181,7 +191,9 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        //Find specific foods in list
+        /**
+         * Find specific foods in list
+         */
         copy = new ArrayList();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
@@ -195,12 +207,19 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        //Set listView of foods
+        /**
+         * Set listView of foods
+         */
         haetut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
                 copy));
     }
 
+    /**
+     * Events for when context menu item is clicked
+     * @param item MenuItem
+     * @return Boolean
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -215,6 +234,12 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         return super.onContextItemSelected(item);
     }
 
+    /**
+     * Creates context menu for valitut listView items
+     * @param menu ContextMenu
+     * @param v View
+     * @param menuInfo ContextMenu.ContextMenuInfo
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -224,18 +249,28 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * onStart method creates back button to action bar
+     */
     @Override
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * Action bar back button event
+     * @return Boolean
+     */
     @Override
     public boolean onSupportNavigateUp() {
         super.onBackPressed();
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Android back button event
+     */
     @Override
     public void onBackPressed() {
         Log.i(TAG, "takaisin ateriafragmenttiin");

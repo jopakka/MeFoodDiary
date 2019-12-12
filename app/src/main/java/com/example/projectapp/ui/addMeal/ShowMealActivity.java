@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
- *
+ * Class for ShowMealActivity
  * @author Joonas Niemi
  */
 public class ShowMealActivity extends AppCompatActivity {

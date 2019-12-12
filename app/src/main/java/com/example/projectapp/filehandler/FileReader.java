@@ -40,7 +40,6 @@ public class FileReader {
                 String proteiini = lineSplit[5];
                 String suola = lineSplit[39];
 
-                Log.i(TAG, "");
                 results.add(new Food(id, name, energia, rasva, hiilihydraatti, kuitu, proteiini, suola));
                 id++;
             }

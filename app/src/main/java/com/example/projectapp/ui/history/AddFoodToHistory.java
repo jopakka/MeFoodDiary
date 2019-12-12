@@ -27,13 +27,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ *Class for AddFoodToHistory activity
  * @author Elmeri Katainen
  */
 public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnItemSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener{
 
     private static final String TAG = "MyLog";
-    List<String> mealNames = new ArrayList<String>();
+    private List<String> mealNames = new ArrayList<>();
     private int day;
     private int month;
     private int year;
@@ -43,12 +43,14 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
     private ListView haetut;
     private EditText et;
 
-
+    /**
+     * onCreate method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HistoryFragment historyF = new HistoryFragment();
         setContentView(R.layout.activity_add_food_to_history);
         dateToInt(Objects.requireNonNull(getIntent().getExtras()).getString(HistoryFragment.EXTRA, "0_0_0"));
 
@@ -56,17 +58,31 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         mealList.setOnItemSelectedListener(this);
         copy = new ArrayList<>();
 
-        mealNames.add(0, ""); // Spinner Drop down elements
+        /**
+         * Spinner Drop down elements
+         */
+        mealNames.add(0, "");
         for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
             mealNames.add(MealsList.getInstance().getMeals().get(i).toString());
         }
 
-        // Creating adapter for spinner
+        /**
+         * Creating adapter for spinner
+         */
         ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, mealNames);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Drop down layout style - list view with radio button
-        mealList.setAdapter(aa); // attaching data adapter to spinner
+        /**
+         * Drop down layout style - list view with radio button
+         */
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        /**
+         * attaching data adapter to spinner
+         */
+        mealList.setAdapter(aa);
     }
 
+    /**
+     * onStart method
+     */
     @Override
     protected void onStart() {
         findViewById(R.id.buttonSearch).setOnClickListener(this);
@@ -79,10 +95,10 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     /**
      * Performing action onItemSelected, saves selected item to FoodHistory
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
+     * @param parent AdapterView<?>
+     * @param view View
+     * @param position int
+     * @param id Long
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,17 +110,21 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         }
     }
 
+    /**
+     * happens when nothing is selected on spinner
+     * @param arg0 AdapterView<?>
+     */
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
+        // empty
     }
 
     /**
      * Add food to FoodHistory when pressing item in ListView
-     * @param parent
-     * @param view
-     * @param i
-     * @param l
+     * @param parent AdapterView<?>
+     * @param view View
+     * @param i int
+     * @param l long
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -116,7 +136,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     /**
      * Perform action onClick, checks if keyboard is on so there's no crash, runs searchFoods
-     * @param view
+     * @param view View
      */
     @Override
     public void onClick(View view) {
@@ -145,7 +165,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     /**
      * Action when back arrow in action bar is pressed
-     * @return
+     * @return Boolean
      */
     @Override
     public boolean onSupportNavigateUp() {
@@ -153,6 +173,9 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Android back button event
+     */
     @Override
     public void onBackPressed() {
         Log.i(TAG, "takaisin ateriafragmenttiin");
@@ -161,16 +184,16 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
 
     /**
      * String date to in values
-     * @param string
+     * @param string String
      */
     public void dateToInt(String string) {
         String[] strArray = string.split("_");
         for(int i = 0; i < strArray.length; i++){
             if(i == 0)
                 day = Integer.parseInt(strArray[i]);
-            if(i == 1)
+            else if(i == 1)
                 month = Integer.parseInt(strArray[i]);
-            if(i == 2)
+            else if(i == 2)
                 year = Integer.parseInt(strArray[i]);
         }
     }
@@ -180,7 +203,9 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
      * Populates ListView "haetut" with results
      */
     private void searchFoods() {
-        //Food you want to find
+        /**
+         * Food you want to find
+         */
         EditText findText = findViewById(R.id.editTextSearch);
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
@@ -192,7 +217,9 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        //Find specific foods in list
+        /**
+         * Find specific foods in list
+         */
         copy = new ArrayList();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
@@ -206,10 +233,11 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
             }
         }
 
-        //Set listView of foods
+        /**
+         * Set listView of foods
+         */
         haetut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
                 copy));
     }
-
 }

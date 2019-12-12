@@ -36,11 +36,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * Class for history fragment
  * @author Elmeri Katainen
  */
 public class HistoryFragment extends Fragment implements View.OnClickListener {
-
     private static final String TAG = "MyLog";
     public static final String EXTRA = "com.example.projectapp.ui.history.EXTRA";
     private Calendar dateSelected;
@@ -75,18 +74,28 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
+    /**
+     * onStart method
+     */
     @Override
     public void onStart() {
         foodHistoryAtDate = getActivity().findViewById(R.id.lvRuokaHistoria);
         super.onStart();
     }
 
+    /**
+     * onResume method, updates UI
+     */
     @Override
     public void onResume() {
         updateUi();
         super.onResume();
     }
 
+    /**
+     * Lisää ateria buttons event, that send selected date to new activity
+     * @param v View
+     */
     @Override
     public void onClick(View v) {
         Intent addFoodToHistory = new Intent(getActivity(), AddFoodToHistory.class);
@@ -156,7 +165,6 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                     .setLines(lines);
         }
 
-
         foodHistoryAtDate.setAdapter(adapter);
     }
 
@@ -180,8 +188,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Calculates proper nutrients to view on TextViews
-     * @param value
-     * @return
+     * @param value Which action runs
+     * @return Double
      */
     private double counter(String value){
         double summa = 0;
@@ -228,8 +236,11 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         return 0;
     }
 
+    /**
+     * Calculates energy value to TextView
+     * @return int
+     */
     private int energyCounter(){
-
         if(foodListDay == null || foodListDay.size() == 0) {
             return 0;
         }
