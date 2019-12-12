@@ -20,6 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.projectapp.R;
 import com.example.projectapp.filehandler.FileReader;
 import com.example.projectapp.food_stuff.Food;
+import com.example.projectapp.food_stuff.FoodAtDate;
+import com.example.projectapp.food_stuff.FoodHistory;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
     private static final String MEALPREF = "MealPref";
+    private static final String DAYPREF = "DayMealPref";
     private boolean searchVisible;
     private static final int MYFILE = R.raw.resultset;
     private Gson gson = new Gson();
@@ -54,13 +57,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
-        String json = gson.toJson(new ArrayList<>());
-        String mealList = pref.getString("MealsList", json);
-        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
-        List<Meal> list = gson.fromJson(mealList, token.getType());
-        MealsList.getInstance().replaceList(list);
+        getGson();
 
+        /**
+         * Create bottom navigation bar
+         */
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration
                 .Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        /**
+         * Creates FoodList if it is empty
+         */
         if(FoodList.getInstance().getFoods().size() == 0){
             FileReader reader = new FileReader();
             InputStream myFile = Objects.requireNonNull(getResources().openRawResource(MYFILE));
@@ -94,11 +98,42 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void saveGson(){
-        String json = gson.toJson(MealsList.getInstance().getMeals());
+    /**
+     * Makes singleton from sharedPreferences
+     */
+    private void getGson(){
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+        /**
+         * Makes mealsList from gson
+         */
+        String mealsJson = gson.toJson(new ArrayList<>());
+        String mealList = pref.getString("MealsList", mealsJson);
+        TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
+        List<Meal> list = gson.fromJson(mealList, token.getType());
+        MealsList.getInstance().replaceList(list);
+
+        /**
+         * Makes foodHistoryList from gson
+         */
+        String dayJson = gson.toJson(new ArrayList<>());
+        String dayList = pref.getString("DayMealsList", dayJson);
+        TypeToken<List<FoodAtDate>> dayToken = new TypeToken<List<FoodAtDate>>(){};
+        List<FoodAtDate> foodDayList = gson.fromJson(dayList, dayToken.getType());
+        FoodHistory.getInstance().replaceList(foodDayList);
+    }
+
+    /**
+     * Saves singletons to sharedPreferences
+     */
+    private void saveGson(){
+        String mealsJson = gson.toJson(MealsList.getInstance().getMeals());
+        String dayJson = gson.toJson(FoodHistory.getInstance().getFoodHistory());
+
+        SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
+
         SharedPreferences.Editor prefEdit = pref.edit();
-        prefEdit.putString("MealsList", json);
+        prefEdit.putString("MealsList", mealsJson);
+        prefEdit.putString("DayMealsList", dayJson);
         prefEdit.apply();
     }
 
