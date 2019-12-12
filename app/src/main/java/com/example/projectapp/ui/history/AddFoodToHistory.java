@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.projectapp.R;
 import com.example.projectapp.filehandler.FileReader;
@@ -33,19 +32,18 @@ import java.util.Objects;
 public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnItemSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener{
 
     private static final String TAG = "MyLog";
-    private List<String> mealNames = new ArrayList<>();
+    private final List<String> mealNames = new ArrayList<>();
     private int day;
     private int month;
     private int year;
     private static final int MYFILE = R.raw.resultset;
-    private List ruokalista;
     private List<Food> copy;
     private ListView haetut;
     private EditText et;
 
     /**
      * onCreate method
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +56,17 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         mealList.setOnItemSelectedListener(this);
         copy = new ArrayList<>();
 
-        /**
-         * Spinner Drop down elements
-         */
+        // Spinner Drop down elements
         mealNames.add(0, "");
         for (int i = 0; i < MealsList.getInstance().getMeals().size(); i++) {
             mealNames.add(MealsList.getInstance().getMeals().get(i).toString());
         }
 
-        /**
-         * Creating adapter for spinner
-         */
+        // Creating adapter for spinner
         ArrayAdapter<String> aa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, mealNames);
-        /**
-         * Drop down layout style - list view with radio button
-         */
+        //Drop down layout style - list view with radio button
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        /**
-         * attaching data adapter to spinner
-         */
+        // attaching data adapter to spinner
         mealList.setAdapter(aa);
     }
 
@@ -89,7 +79,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         haetut = findViewById(R.id.haetut);
         et = findViewById(R.id.editTextSearch);
         haetut.setOnItemClickListener(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         super.onStart();
     }
 
@@ -102,9 +92,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), item, Toast.LENGTH_LONG).show();
-        if(mealNames.get(position) != "") {
+        if(!Objects.equals(mealNames.get(position), "")) {
             FoodHistory.getInstance().addFoodHistory(new FoodAtDate(day, month, year, MealsList.getInstance().getMeals().get(position - 1)));
             onSupportNavigateUp();
         }
@@ -140,27 +128,25 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
      */
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonSearch:
-                Log.i(TAG, "search button toimii");
-                haetut.setVisibility(View.VISIBLE);
-                try {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                } catch (Exception e) {
-                    Log.d(TAG, "keyboard not visible");
-                }
-                findViewById(R.id.editTextSearch).clearFocus();
+        if (view.getId() == R.id.buttonSearch) {
+            Log.i(TAG, "search button toimii");
+            haetut.setVisibility(View.VISIBLE);
+            try {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+            } catch (Exception e) {
+                Log.d(TAG, "keyboard not visible");
+            }
+            findViewById(R.id.editTextSearch).clearFocus();
 
-                if (et.getText().toString().isEmpty()) {
-                    if (copy.size() < FoodList.getInstance().getFoods().size()) {
-                        searchFoods();
-                    }
-                } else {
+            if (et.getText().toString().isEmpty()) {
+                if (copy.size() < FoodList.getInstance().getFoods().size()) {
                     searchFoods();
                 }
-                break;
-                }
+            } else {
+                searchFoods();
+            }
+        }
     }
 
     /**
@@ -186,7 +172,7 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
      * String date to in values
      * @param string String
      */
-    public void dateToInt(String string) {
+    private void dateToInt(String string) {
         String[] strArray = string.split("_");
         for(int i = 0; i < strArray.length; i++){
             if(i == 0)
@@ -203,8 +189,8 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
      * Populates ListView "haetut" with results
      */
     private void searchFoods() {
-        /**
-         * Food you want to find
+        /*
+          Food you want to find
          */
         EditText findText = findViewById(R.id.editTextSearch);
         String haku = findText.getText().toString();
@@ -213,18 +199,18 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
         if (FoodList.getInstance().getFoods().size() == 0) {
             FileReader reader = new FileReader();
             InputStream myFile = getResources().openRawResource(MYFILE);
-            ruokalista = reader.readFile(myFile);
+            List<Food> ruokalista = reader.readFile(myFile);
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        /**
-         * Find specific foods in list
+        /*
+          Find specific foods in list
          */
-        copy = new ArrayList();
+        copy = new ArrayList<>();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
-            for (int j = 0; j < hakusanat.length; j++) {
-                if (FoodList.getInstance().getFoods().get(i).getName().toLowerCase().contains(hakusanat[j].toLowerCase())) {
+            for (String s : hakusanat) {
+                if (FoodList.getInstance().getFoods().get(i).getName().toLowerCase().contains(s.toLowerCase())) {
                     arvo++;
                 }
             }
@@ -233,8 +219,8 @@ public class AddFoodToHistory extends AppCompatActivity implements Spinner.OnIte
             }
         }
 
-        /**
-         * Set listView of foods
+        /*
+          Set listView of foods
          */
         haetut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,

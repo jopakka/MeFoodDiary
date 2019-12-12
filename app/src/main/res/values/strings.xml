@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MeFoodDiary</string>
     <string name="findFood">Hae ruokia</string>
-    <string name="bSearch">Haku</string>
     <string name="title_home">Koti</string>
     <string name="title_ruuat">Ruuat</string>
     <string name="title_addMeal">Ateriat</string>
@@ -15,7 +14,6 @@
     <string name="foodInfo_kuitu">Kuitua:</string>
     <string name="foodInfo_proteiini">Proteiinia:</string>
     <string name="foodInfo_suola">Suolaa:</string>
-    <string name="tvSearch">Etsi</string>
     <string name="tCreators">Sovelluksen tekijät:</string>
     <string name="tNames">Elmeri Katainen\nMiro Norring\nJoonas Niemi</string>
     <string name="ingredient_tip">Hae lisättävää ainesosaa</string>
@@ -27,7 +25,6 @@
     <string name="text_gram">%1$sg</string>
     <string name="text_mGram">%1$smg</string>
     <string name="add_foodToHistory">Lisää ruoka</string>
-    <string name="meal_food_value">Aterian ravintotiedot</string>
     <string name="day_food_value">Päivän syötyjen ruokien ravintotietojen keskiarvot per 100g</string>
     <string name="add_mealToHistory">Valitse ateria:</string>
 </resources>

@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.projectapp.R;
-import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
 import com.example.projectapp.ui.MainActivity;
@@ -35,7 +34,7 @@ public class ShowMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_meal);
 
         Bundle b = getIntent().getExtras();
-        mealId = b.getInt(MainActivity.EXTRA, 0);
+        mealId = Objects.requireNonNull(b).getInt(MainActivity.EXTRA, 0);
 
         Log.i(TAG, "Meal ID: " + mealId +" " + MealsList.getInstance().getMeals().get(mealId).getMeal());
 

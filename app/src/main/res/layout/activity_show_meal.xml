@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,6 @@
             android:showDividers="none">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"
@@ -67,7 +66,6 @@
                 android:textSize="@dimen/info_textbox_font_size" />
 
             <TextView
-                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"
@@ -75,7 +73,6 @@
                 android:textSize="@dimen/info_textbox_font_size" />
 
             <TextView
-                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"
@@ -83,7 +80,6 @@
                 android:textSize="@dimen/info_textbox_font_size" />
 
             <TextView
-                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"
@@ -91,7 +87,6 @@
                 android:textSize="@dimen/info_textbox_font_size" />
 
             <TextView
-                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"
@@ -99,7 +94,6 @@
                 android:textSize="@dimen/info_textbox_font_size" />
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/info_textbox_margin"

@@ -3,9 +3,6 @@ package com.example.projectapp.ui.addMeal;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -26,12 +23,11 @@ import com.example.projectapp.food_stuff.Food;
 import com.example.projectapp.food_stuff.FoodList;
 import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
-import com.example.projectapp.ui.MainActivity;
-import com.google.gson.Gson;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class for CreateMealActivity
@@ -44,7 +40,6 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     private ListView valitut;
     private static final String TAG = "MyLog";
     private EditText et;
-    private List ruokalista;
     private static final int MYFILE = R.raw.resultset;
     private String ateriaNimi = "";
 
@@ -79,7 +74,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                 haetut.setVisibility(View.VISIBLE);
                 try {
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                 } catch (Exception e) {
                     Log.d(TAG, "keyboard not visible");
                 }
@@ -99,45 +94,35 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
                 if(ingredients.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Lisää ainesosia listalle", Toast.LENGTH_SHORT).show();
                 } else {
-                    /**
-                     * https://stackoverflow.com/questions/10903754/input-text-dialog-android
-                     */
+                    // https://stackoverflow.com/questions/10903754/input-text-dialog-android
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Nimeä ateria");
                     final EditText input = new EditText(this);
                     input.setInputType(InputType.TYPE_CLASS_TEXT);
                     input.setHint("Anna aterialle nimi");
                     builder.setView(input);
-                    builder.setPositiveButton("Tallenna", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (!input.getText().toString().isEmpty()) {
-                                ateriaNimi = input.getText().toString();
-                                Meal ateria = new Meal(ingredients, ateriaNimi);
-                                Log.i(TAG, "Juuri luotu ateria: " + ateria.getMeal());
-                                ateriaNimi = "";
-                                Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_SHORT).show();
-                                ingredients.clear();
-                                showIngredients();
-                                MealsList.getInstance().addMeal(ateria);
+                    builder.setPositiveButton("Tallenna", (dialog, which) -> {
+                        if (!input.getText().toString().isEmpty()) {
+                            ateriaNimi = input.getText().toString();
+                            Meal ateria = new Meal(ingredients, ateriaNimi);
+                            Log.i(TAG, "Juuri luotu ateria: " + ateria.getMeal());
+                            ateriaNimi = "";
+                            Toast.makeText(getApplicationContext(), "Ateria tallennetu!", Toast.LENGTH_SHORT).show();
+                            ingredients.clear();
+                            showIngredients();
+                            MealsList.getInstance().addMeal(ateria);
 
 
-                                Log.i(TAG, "MealsList arvo " + (MealsList.getInstance().getMeals().size() - 1)
-                                        + ": " + MealsList.getInstance().getMeals().get(MealsList.getInstance()
-                                        .getMeals().size() - 1).getMeal());
+                            Log.i(TAG, "MealsList arvo " + (MealsList.getInstance().getMeals().size() - 1)
+                                    + ": " + MealsList.getInstance().getMeals().get(MealsList.getInstance()
+                                    .getMeals().size() - 1).getMeal());
 
-                                onSupportNavigateUp();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Anna aterialle nimi!", Toast.LENGTH_SHORT).show();
-                            }
+                            onSupportNavigateUp();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Anna aterialle nimi!", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    builder.setNegativeButton("Peruuta", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
+                    builder.setNegativeButton("Peruuta", (dialog, which) -> dialog.cancel());
 
                     builder.show();
                     break;
@@ -148,10 +133,10 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
 
     /**
      * Contains onItemClick events
-     * @param parent
-     * @param view
-     * @param i
-     * @param l
+     * @param parent AdapterView<?>
+     * @param view View
+     * @param i int
+     * @param l long
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -177,9 +162,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
      * Search foods on FoodList singleton
      */
     private void searchFoods() {
-        /**
-         * Food you want to find
-         */
+        // Food you want to find
         EditText findText = findViewById(R.id.haku);
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
@@ -187,18 +170,16 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
         if (FoodList.getInstance().getFoods().size() == 0) {
             FileReader reader = new FileReader();
             InputStream myFile = getResources().openRawResource(MYFILE);
-            ruokalista = reader.readFile(myFile);
+            List<Food> ruokalista = reader.readFile(myFile);
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        /**
-         * Find specific foods in list
-         */
-        copy = new ArrayList();
+        // Find specific foods in list
+        copy = new ArrayList<>();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
-            for (int j = 0; j < hakusanat.length; j++) {
-                if (FoodList.getInstance().getFoods().get(i).getName().toLowerCase().contains(hakusanat[j].toLowerCase())) {
+            for (String s : hakusanat) {
+                if (FoodList.getInstance().getFoods().get(i).getName().toLowerCase().contains(s.toLowerCase())) {
                     arvo++;
                 }
             }
@@ -207,9 +188,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        /**
-         * Set listView of foods
-         */
+        // Set listView of foods
         haetut.setAdapter(new ArrayAdapter<>(this,
                 R.layout.food_list_layout,
                 copy));
@@ -223,13 +202,12 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.delete:
-                Log.i(TAG, "Poisto toimii");
-                Log.i(TAG, "Long click id " + info.id);
-                ingredients.remove((int) info.id);
-                showIngredients();
-                return true;
+        if (item.getItemId() == R.id.delete) {
+            Log.i(TAG, "Poisto toimii");
+            Log.i(TAG, "Long click id " + info.id);
+            ingredients.remove((int) info.id);
+            showIngredients();
+            return true;
         }
         return super.onContextItemSelected(item);
     }
@@ -255,7 +233,7 @@ public class CreateMealActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     /**

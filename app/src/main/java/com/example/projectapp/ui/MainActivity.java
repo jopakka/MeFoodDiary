@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String MEALPREF = "MealPref";
     private boolean searchVisible;
     private static final int MYFILE = R.raw.resultset;
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
     /**
      * Happens when activity is created
@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         getGson();
 
-        /**
-         * Create bottom navigation bar
-         */
+        // Create bottom navigation bar
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration
                 .Builder(R.id.navigation_home, R.id.navigation_history, R.id.navigation_addMeal).build();
@@ -68,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        /**
-         * Creates FoodList if it is empty
-         */
+        // Creates FoodList if it is empty
         if(FoodList.getInstance().getFoods().size() == 0){
             FileReader reader = new FileReader();
             InputStream myFile = Objects.requireNonNull(getResources().openRawResource(MYFILE));
@@ -111,18 +107,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getGson(){
         SharedPreferences pref = getSharedPreferences(MEALPREF, Activity.MODE_PRIVATE);
-        /**
-         * Makes mealsList from gson
-         */
+
+        // Makes mealsList from gson
         String mealsJson = gson.toJson(new ArrayList<>());
         String mealList = pref.getString("MealsList", mealsJson);
         TypeToken<List<Meal>> token = new TypeToken<List<Meal>>() {};
         List<Meal> list = gson.fromJson(mealList, token.getType());
         MealsList.getInstance().replaceList(list);
 
-        /**
-         * Makes foodHistoryList from gson
-         */
+        // Makes foodHistoryList from gson
         String dayJson = gson.toJson(new ArrayList<>());
         String dayList = pref.getString("DayMealsList", dayJson);
         TypeToken<List<FoodAtDate>> dayToken = new TypeToken<List<FoodAtDate>>(){};

@@ -1,5 +1,7 @@
 package com.example.projectapp.food_stuff;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +10,8 @@ import java.util.List;
  * @author Miro Norring
  */
 public class Meal {
-    private List<Food> foods;
-    private String nimi;
+    private final List<Food> foods;
+    private final String nimi;
 
     /**
      * Constructor for meal
@@ -34,6 +36,7 @@ public class Meal {
      * Return foods name
      * @return Food name
      */
+    @NonNull
     @Override
     public String toString() {
         return nimi;

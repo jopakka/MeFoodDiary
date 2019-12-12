@@ -37,7 +37,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  * @author Joonas Niemi
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
-    public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
+    private static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
     /**
      * Tiedosto on https://fineli.fi/fineli/fi/elintarvikkeet
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         searchButton.setOnClickListener(this);
         lvFoods.setOnItemClickListener(this);
 
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         return root;
     }
 
@@ -74,25 +74,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      */
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bSearch:
-                Log.i(TAG, "search button toimii");
-                try {
-                    InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(INPUT_METHOD_SERVICE);
-                    Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(), 0);
-                } catch (Exception e) {
-                    Log.d(TAG, "keyboard not visible");
-                }
-                Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind).clearFocus();
+        if (view.getId() == R.id.bSearch) {
+            Log.i(TAG, "search button toimii");
+            try {
+                InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(), 0);
+            } catch (Exception e) {
+                Log.d(TAG, "keyboard not visible");
+            }
+            Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind).clearFocus();
 
-                if (et.getText().toString().isEmpty()) {
-                    if (copy.size() < FoodList.getInstance().getFoods().size()) {
-                        searchFoods();
-                    }
-                } else {
+            if (et.getText().toString().isEmpty()) {
+                if (copy.size() < FoodList.getInstance().getFoods().size()) {
                     searchFoods();
                 }
-                break;
+            } else {
+                searchFoods();
+            }
         }
     }
 
@@ -119,7 +117,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * @param savedInstanceState Bundle
      */
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         et = Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind);
         et.setText(searchWords);
         searchFoods();
@@ -138,7 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * @param inflater MenuInflater
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.action_addMeal).setVisible(false);
     }
@@ -147,9 +145,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
      * Find items that contains word(s) given in EditText box
      */
     private void searchFoods() {
-        /**
-         * If FoodList is empty, create new list
-         */
+        // If FoodList is empty, create new list
         if(FoodList.getInstance().getFoods().size() == 0){
             FileReader reader = new FileReader();
             InputStream myFile = Objects.requireNonNull(getActivity()).getResources().openRawResource(MYFILE);
@@ -157,17 +153,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
             FoodList.getInstance().addFoods(ruokalista);
         }
 
-        /**
-         * Food you want to find
-         */
+        // Food you want to find
         EditText findText = Objects.requireNonNull(getActivity()).findViewById(R.id.ptFind);
         String haku = findText.getText().toString();
         String[] hakusanat = haku.split(" ");
 
-        /**
-         * Find specific foods in list
-         */
-        copy = new ArrayList();
+        // Find specific foods in list
+        copy = new ArrayList<>();
         for (int i = 0; i < FoodList.getInstance().getFoods().size(); i++) {
             int arvo = 0;
             for (String s : hakusanat) {
@@ -180,9 +172,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
             }
         }
 
-        /**
-         * Set listView of foods
-         */
+        // Set listView of foods
         lvFoods.setAdapter(new ArrayAdapter<>(getActivity(),
                 R.layout.food_list_layout,
                 copy));

@@ -3,15 +3,11 @@ package com.example.projectapp.ui.history;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -24,16 +20,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projectapp.R;
 import com.example.projectapp.food_stuff.Food;
-import com.example.projectapp.food_stuff.FoodAtDate;
 import com.example.projectapp.food_stuff.FoodHistory;
-import com.example.projectapp.food_stuff.Meal;
-import com.example.projectapp.food_stuff.MealsList;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class for history fragment
@@ -49,27 +43,24 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Activity OnCreateView
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         setHasOptionsMenu(true);
         foodListDay = new ArrayList<>();
         dateSelected = Calendar.getInstance();
-        Button buttonLisaaRuoka = (Button) root.findViewById(R.id.bLisaaRuoka);
+        Button buttonLisaaRuoka = root.findViewById(R.id.bLisaaRuoka);
         buttonLisaaRuoka.setOnClickListener(this);
 
         CalendarView calendarView = root.findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                dateSelected.set(year, month, dayOfMonth);
-                Log.i(TAG, Integer.toString(dateSelected.get(Calendar.DAY_OF_MONTH)) + Integer.toString(dateSelected.get(Calendar.MONTH)));
-                updateUi();
-            }
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            dateSelected.set(year, month, dayOfMonth);
+            Log.i(TAG, dateSelected.get(Calendar.DAY_OF_MONTH) + " " + dateSelected.get(Calendar.MONTH));
+            updateUi();
         });
         return root;
     }
@@ -79,7 +70,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onStart() {
-        foodHistoryAtDate = getActivity().findViewById(R.id.lvRuokaHistoria);
+        foodHistoryAtDate = Objects.requireNonNull(getActivity()).findViewById(R.id.lvRuokaHistoria);
         super.onStart();
     }
 
@@ -105,11 +96,11 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Create top bar buttons
-     * @param menu
-     * @param inflater
+     * @param menu Menu
+     * @param inflater MenuInflater
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_addMeal).setVisible(false);
@@ -117,16 +108,16 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Set maximum modifiable date, populate ListView
-     * @param view
-     * @param savedInstanceState
+     * @param view View
+     * @param savedInstanceState Bundle
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CalendarView cv = getView().findViewById(R.id.calendarView);
+        CalendarView cv = Objects.requireNonNull(getView()).findViewById(R.id.calendarView);
         cv.setMaxDate(new Date().getTime());
 
-        adapter = new ArrayAdapter<>(getActivity(),
+        adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                 R.layout.food_list_layout_history,
                 foodListDay);
 
@@ -139,7 +130,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         createDayList();
 
         DecimalFormat df = new DecimalFormat("#.#");
-        ((TextView)getActivity().findViewById(R.id.tvHomeEnergia))
+        ((TextView) Objects.requireNonNull(getActivity()).findViewById(R.id.tvHomeEnergia))
                 .setText(String.format(getResources().getString(R.string.text_energy), Integer.toString(energyCounter()),
                         "" + Math.round(energyCounter() / 4.1868)));
         ((TextView)getActivity().findViewById(R.id.tvHomehiilihydraatti)).setText(String.format(getResources()
@@ -156,7 +147,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         ((TextView)getActivity().findViewById(R.id.tvHomeSuola)).setText(String.format(getResources()
                 .getString(R.string.text_mGram), df.format(counter("suola"))));
 
-        int lines = ((TextView)getView().findViewById(R.id.tvHomeEnergia)).getLineCount();
+        int lines = ((TextView) Objects.requireNonNull(getView()).findViewById(R.id.tvHomeEnergia)).getLineCount();
         if(lines == 0){
             ((TextView)getView().findViewById(R.id.textView21))
                     .setLines(1);

@@ -5,9 +5,9 @@ package com.example.projectapp.food_stuff;
  * @author Elmeri Katainen
  */
 public class FoodAtDate {
-    private int day;
-    private int month;
-    private int year;
+    private final int day;
+    private final int month;
+    private final int year;
     private Food food;
     private Meal meal;
 
@@ -84,9 +84,6 @@ public class FoodAtDate {
      * @return Boolean
      */
     public boolean isMeal() {
-        if(food == null)
-            return true;
-        else
-            return false;
+        return food == null;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.projectapp.food_stuff;
 
+import androidx.annotation.NonNull;
+
 /**
  * Food object class
  * @author Joonas Niemi
@@ -104,6 +106,7 @@ public class Food {
      * Return string that contains foods name
      * @return Foods name string
      */
+    @NonNull
     @Override
     public String toString() {
         return name;

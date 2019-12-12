@@ -66,7 +66,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7">
 
         <TextView
-            android:id="@+id/textView33"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="3"
@@ -78,7 +77,8 @@
             android:layout_height="0dp"
             android:layout_weight="7"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,31 +93,26 @@
                     android:text="@string/foodInfo_energia" />
 
                 <TextView
-                    android:id="@+id/textView22"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/foodInfo_hiilihydraatti" />
 
                 <TextView
-                    android:id="@+id/textView23"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/foodInfo_suola" />
 
                 <TextView
-                    android:id="@+id/textView24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/foodInfo_kuitu" />
 
                 <TextView
-                    android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/foodInfo_proteiini" />
 
                 <TextView
-                    android:id="@+id/textView31"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/foodInfo_rasva" />
@@ -132,38 +127,32 @@
                 <TextView
                     android:id="@+id/tvHomeEnergia"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tvHomehiilihydraatti"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tvHomeSuola"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tvHomeKuitu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tvHomeProteiini"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tvHomeRasva"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,6 +22,7 @@ import com.example.projectapp.food_stuff.Meal;
 import com.example.projectapp.food_stuff.MealsList;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class that contains MealsFragment
@@ -40,7 +40,7 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
      * @param inflater Inflates view with addmeal fragment
      * @param container ViewGroup
      * @param savedInstanceState Bundle
-     * @return
+     * @return View
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_meal, container, false);
@@ -55,7 +55,7 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
      * @param inflater MenuInflater
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.action_search).setVisible(false);
     }
@@ -66,11 +66,11 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
      * @param savedInstanceState Bundle
      */
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lvSavedMeals = getView().findViewById(R.id.lvSavedMeals);
+        lvSavedMeals = Objects.requireNonNull(getView()).findViewById(R.id.lvSavedMeals);
         registerForContextMenu(lvSavedMeals);
-        adapter = new ArrayAdapter<>(getActivity(),
+        adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                 R.layout.food_list_layout,
                 meals);
 
@@ -94,13 +94,12 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.delete:
-                Log.i(TAG, "Poisto toimii");
-                Log.i(TAG, "Long click id " + info.id);
-                meals.remove((int) info.id);
-                updateUi();
-                return true;
+        if (item.getItemId() == R.id.delete) {
+            Log.i(TAG, "Poisto toimii");
+            Log.i(TAG, "Long click id " + info.id);
+            meals.remove((int) info.id);
+            updateUi();
+            return true;
         }
         return super.onContextItemSelected(item);
     }
@@ -112,10 +111,10 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
      * @param menuInfo ContextMenu.ContextMenuInfo
      */
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == R.id.lvSavedMeals) {
-            MenuInflater inflater = getActivity().getMenuInflater();
+            MenuInflater inflater = Objects.requireNonNull(getActivity()).getMenuInflater();
             inflater.inflate(R.menu.menu_list, menu);
         }
     }
