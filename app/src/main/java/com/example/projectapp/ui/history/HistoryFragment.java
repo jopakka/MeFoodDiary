@@ -147,6 +147,16 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         ((TextView)getActivity().findViewById(R.id.tvHomeSuola)).setText(String.format(getResources()
                 .getString(R.string.text_mGram), df.format(counter("suola"))));
 
+        int lines = ((TextView)getView().findViewById(R.id.tvHomeEnergia)).getLineCount();
+        if(lines == 0){
+            ((TextView)getView().findViewById(R.id.textView21))
+                    .setLines(1);
+        } else{
+            ((TextView)getView().findViewById(R.id.textView21))
+                    .setLines(lines);
+        }
+
+
         foodHistoryAtDate.setAdapter(adapter);
     }
 

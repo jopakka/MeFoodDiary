@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private static final String TAG = "MyLog";
     private static final String MEALPREF = "MealPref";
-    private static final String DAYPREF = "DayMealPref";
     private boolean searchVisible;
     private static final int MYFILE = R.raw.resultset;
     private Gson gson = new Gson();
@@ -80,18 +79,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Saves gson when paused
+     */
     @Override
     protected void onPause() {
         saveGson();
         super.onPause();
     }
 
+    /**
+     * Saves gson when stopped
+     */
     @Override
     protected void onStop() {
         saveGson();
         super.onStop();
     }
 
+    /**
+     * Saves gson when destroyed
+     */
     @Override
     protected void onDestroy() {
         saveGson();
@@ -142,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
      * @param menu Menu
      * @return Return boolean if action bar is created
      */
-    //Luo options valikon yläpalkkiin
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
@@ -157,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
      * @param item Menu item
      * @return return if item is clicked
      */
-    //Options menu item click events
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

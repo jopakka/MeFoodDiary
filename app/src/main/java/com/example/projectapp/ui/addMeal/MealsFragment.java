@@ -32,8 +32,9 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
     private static final String TAG = "MyLog";
     private ListView lvSavedMeals;
     private List<Meal> meals;
-    public static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
+    private static final String EXTRA = "com.example.projectapp.ui.home.EXTRA";
     private ArrayAdapter adapter;
+
     /**
      * Creates fragment
      * @param inflater Inflates view with addmeal fragment
@@ -48,8 +49,6 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         return root;
     }
 
-    //Create top bar buttons
-
     /**
      * Creates options metu to action bar
      * @param menu Menu
@@ -61,6 +60,11 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         menu.findItem(R.id.action_search).setVisible(false);
     }
 
+    /**
+     * Happens when view is created
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -73,12 +77,20 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         lvSavedMeals.setOnItemClickListener(this);
     }
 
+    /**
+     * Updates UI when resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
         updateUi();
     }
 
+    /**
+     * Happens when listView item is long clicked
+     * @param item MenuItem
+     * @return Boolean
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -93,6 +105,12 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         return super.onContextItemSelected(item);
     }
 
+    /**
+     * Creates context menu for listView items
+     * @param menu ContextMenu
+     * @param v View
+     * @param menuInfo ContextMenu.ContextMenuInfo
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -102,6 +120,13 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         }
     }
 
+    /**
+     * ListView items normal click event
+     * @param parent AdapterView<?>
+     * @param view View
+     * @param i int
+     * @param id long
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
         Intent nextActivity = new Intent(getActivity(), ShowMealActivity.class);
@@ -110,6 +135,9 @@ public class MealsFragment extends Fragment implements AdapterView.OnItemClickLi
         startActivity(nextActivity);
     }
 
+    /**
+     * Updates UI
+     */
     private void updateUi(){
         lvSavedMeals.setAdapter(adapter);
     }
