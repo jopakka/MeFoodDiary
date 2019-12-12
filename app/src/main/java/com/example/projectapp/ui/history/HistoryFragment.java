@@ -3,12 +3,15 @@ package com.example.projectapp.ui.history;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -36,7 +39,7 @@ import java.util.List;
  *
  * @author Elmeri Katainen
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "MyLog";
     public static final String EXTRA = "com.example.projectapp.ui.history.EXTRA";
@@ -45,21 +48,20 @@ public class HistoryFragment extends Fragment {
     private ArrayAdapter adapter;
     private List<Food> foodListDay;
 
+    /**
+     * Activity OnCreateView
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         setHasOptionsMenu(true);
         foodListDay = new ArrayList<>();
         dateSelected = Calendar.getInstance();
         Button buttonLisaaRuoka = (Button) root.findViewById(R.id.bLisaaRuoka);
-        buttonLisaaRuoka.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addFoodToHistory = new Intent(getActivity(), AddFoodToHistory.class);
-                addFoodToHistory.putExtra(EXTRA, dateSelected.get(Calendar.DAY_OF_MONTH) + "_" + dateSelected.get(Calendar.MONTH) + "_" + dateSelected.get(Calendar.YEAR));
-                startActivity(addFoodToHistory);
-                //foodAtDate.add(new FoodAtDate(dateSelected.get(Calendar.DAY_OF_MONTH), dateSelected.get(Calendar.MONTH), dateSelected.get(Calendar.YEAR)));
-            }
-        });
+        buttonLisaaRuoka.setOnClickListener(this);
 
         CalendarView calendarView = root.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -83,6 +85,13 @@ public class HistoryFragment extends Fragment {
     public void onResume() {
         updateUi();
         super.onResume();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent addFoodToHistory = new Intent(getActivity(), AddFoodToHistory.class);
+        addFoodToHistory.putExtra(EXTRA, dateSelected.get(Calendar.DAY_OF_MONTH) + "_" + dateSelected.get(Calendar.MONTH) + "_" + dateSelected.get(Calendar.YEAR));
+        startActivity(addFoodToHistory);
     }
 
     /**
@@ -111,6 +120,7 @@ public class HistoryFragment extends Fragment {
         adapter = new ArrayAdapter<>(getActivity(),
                 R.layout.food_list_layout_history,
                 foodListDay);
+
     }
 
     /**
@@ -140,6 +150,9 @@ public class HistoryFragment extends Fragment {
         foodHistoryAtDate.setAdapter(adapter);
     }
 
+    /**
+     * Populate ListView (foodListDay) from FoodHistory
+     */
     private void createDayList() {
         foodListDay.clear();
         for(int i = 0; FoodHistory.getInstance().getFoodHistory().size() > i; i++) {
@@ -155,6 +168,11 @@ public class HistoryFragment extends Fragment {
         }
     }
 
+    /**
+     * Calculates proper nutrients to view on TextViews
+     * @param value
+     * @return
+     */
     private double counter(String value){
         double summa = 0;
         if(foodListDay == null || foodListDay.size() == 0) {
@@ -212,4 +230,5 @@ public class HistoryFragment extends Fragment {
         }
         return summa / foodListDay.size();
     }
+
 }
