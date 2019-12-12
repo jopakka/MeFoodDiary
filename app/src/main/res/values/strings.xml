@@ -28,5 +28,6 @@
     <string name="text_mGram">%1$smg</string>
     <string name="add_foodToHistory">Lisää ruoka</string>
     <string name="meal_food_value">Aterian ravintotiedot</string>
+    <string name="day_food_value">Päivän syötyjen ruokien ravintotietojen keskiarvot per 100g</string>
     <string name="add_mealToHistory">Valitse ateria:</string>
 </resources>

@@ -15,8 +15,8 @@ public class FoodHistory {
         this.foodHistory = new ArrayList<>();
     }
 
-    public void addFoodHistory(List<FoodAtDate> foodHistory) {
-        this.foodHistory = foodHistory;
+    public void addFoodHistory(FoodAtDate foodHistory) {
+        this.foodHistory.add(foodHistory);
     }
 
     public List<FoodAtDate> getFoodHistory() {
