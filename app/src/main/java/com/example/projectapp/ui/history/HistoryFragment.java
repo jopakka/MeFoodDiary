@@ -85,7 +85,11 @@ public class HistoryFragment extends Fragment {
         super.onResume();
     }
 
-    //Create top bar buttons
+    /**
+     * Create top bar buttons
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -93,6 +97,11 @@ public class HistoryFragment extends Fragment {
         menu.findItem(R.id.action_addMeal).setVisible(false);
     }
 
+    /**
+     * Set maximum modifiable date, populate ListView
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -104,6 +113,9 @@ public class HistoryFragment extends Fragment {
                 foodListDay);
     }
 
+    /**
+     * Set values to TextViews, calls createDayList
+     */
     private void updateUi(){
         createDayList();
 
